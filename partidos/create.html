@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Crear partido</title>
+  <link rel="preload" href="../../css/forms.css" as="style">
+  <link href="../../css/forms.css" rel="stylesheet">
+</head>
+<body>
+  <div id="slidebar"></div>
+    <section class="principalbox">
+      <div class="contorno">
+        <h1>Crear Partido</h1>
+
+        <form action="#" method="POST">
+          <label>Fecha del Partido:<br>
+            <input type="date" name="fechaPartido" value=""> <br>
+          </label>
+
+          <label>Hora del partido: <br>
+            <input type="time" name="horaPartido" value=""> <br>
+          </label>
+
+          <label>Jornada:<br>
+            <input type="number" name="jornada" value=""> <br>
+          </label>
+
+          <label styles="margin-botton: 20px;">Equipo Local:<br>
+            <select name="equipoLocal_id">
+              <option value="">Seleccione equipo</option>
+            </select> <br>
+          </label>
+
+          <label>Equipo Visitante:<br>
+            <select name="equipoVisitante_id">
+              <option value="">Seleccione equipo</option>
+            </select> <br>
+          </label>
+
+          <label style="margin-top:20px;" for="cantidad">Resultado de equipo Local: </label>
+          <input type="number" name="resLocal" value="">
+
+          <label for="cantidad">Resultado de equipo Visitante:</label>
+          <input type="number" name="resVisitante" value="">
+
+          <a class="button-right" href="/torneo/show.html">Volver</a>
+          <button class="button-left" type="submit">Crear</button>
+        </form>
+      </div>
+    </section>
+
+  <script src="../js/dashboard.js"></script>
+</body>
+</html>

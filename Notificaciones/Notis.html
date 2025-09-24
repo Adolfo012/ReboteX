@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notificaciones</title>
+    <link rel="preload" href="../css/dashboard.css" as="style">
+    <link href="../css/dashboard.css" rel="stylesheet">
+    <link rel="preload" href="../css/forms.css" as="style">
+    <link href="../css/forms.css" rel="stylesheet">
+    <link rel="preload" href="../css/formschico..css" as="style">
+    <link href="../css/formschico..css" rel="stylesheet">
+</head>
+<body>
+    <div id="slidebar"></div>
+
+    <section class="principalbox">
+        <section class="contorno">
+            <h1 style="color: #3498db;">Notificaciones</h1>
+            <h3>¡Hola ! Aquí podrás encontrar las notificaciones de tus equipos y torneos que lideres.</h3>
+
+            <!-- Notificaciones de representantes (miembros-equipos) -->
+            <form action="#" method="post">
+                El usuario: <b></b> desea ser miembro del equipo
+                <b>""</b>.
+                <input type="hidden" name="equipo_id" value="" />
+                <input type="hidden" name="user_id" value="" />
+                <input type="hidden" name="user_id2" value="" />
+                <button type="submit" name="action" value="aceptada">Aceptar</button>
+                <button type="submit" name="action" value="rechazada">Rechazar</button>
+                <br>
+            </form>
+
+            <!-- Notificaciones de organizadores torneos por equipo -->
+            <form action="#" method="post">
+                El equipo: <b></b> desea ser miembro del torneo por equipos
+                <b>.</b><input type="hidden" name="user_id" value="" />
+                <input type="hidden" name="equipo_id" value="" />
+                <input type="hidden" name="torneo_id" value="" />
+                <button type="submit" name="action" value="aceptada">Aceptar</button>
+                <button type="submit" name="action" value="rechazada">Rechazar</button>
+                <br>
+            </form>
+
+            <!-- Notificaciones de organizadores torneos individuales -->
+            <form action="#" method="post">
+                El participante: <b></b> desea ser miembro del torneo individual
+                <b>.</b>
+                <input type="hidden" name="user_id" value="" />
+                <input type="hidden" name="user_id2" value="" />
+                <input type="hidden" name="torneo_id" value="" />
+                <button type="submit" name="action" value="aceptada">Aceptar</button>
+                <button type="submit" name="action" value="rechazada">Rechazar</button>
+                <br>
+            </form>
+
+            <!-- Notificaciones de usuario (participante) -->
+            <form action="#" method="post">
+                Tú solicitud fue aceptada <b></b> y ahora eres participante del torneo
+                <b>.</b>
+                <input type="hidden" name="user_id" value="" />
+                <input type="hidden" name="torneo_id" value="" />
+                <button type="submit" name="action" value="rechazada">Aceptar</button>
+                <br>
+            </form>
+
+            <!-- Notificaciones de usuario (equipo) -->
+            <form action="#" method="post">
+                Tú solicitud de equipo fue aceptada <b></b> y ahora tú equipo
+                <b></b> es miembro del torneo <b>.</b>
+                <input type="hidden" name="user_id" value="" />
+                <input type="hidden" name="equipo_id" value="" />
+                <input type="hidden" name="torneo_id" value="" />
+                <button type="submit" name="action" value="rechazada">Aceptar</button>
+                <br>
+            </form>
+
+            <!-- Notificaciones de usuario (miembro) -->
+            <form action="#" method="post">
+                Tú solicitud fue aceptada <b></b> y ahora eres miembro del equipo
+                <b></b>
+                <input type="hidden" name="user_id" value="" />
+                <input type="hidden" name="equipo_id" value="" />
+                <button type="submit" name="action" value="rechazada">Aceptar</button>
+                <br>
+            </form>
+
+            <a class="button-right" href="../client/dashboard.html">Volver</a>
+        </section>
+    </section>
+
+    <footer class="footer">
+        <p>© 2025 ReboteX - Todos los derechos reservados</p>
+    </footer>
+
+    <script src="../js/dashboard.js"></script>
+</body>
+</html>

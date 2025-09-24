@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editar Equipo</title>
+<link rel="preload" href="../../css/forms.css" as="style">
+<link href="../../css/forms.css" rel="stylesheet">
+</head>
+<body>
+  <div id="slidebar"></div>
+    <section class="principalbox">
+      <div class="contorno">
+        <h1>Editar Equipo</h1>
+
+        <form action="#" method="POST">
+          <label>Nombre de equipo: <br>
+            <input type="text" name="name" value=""> <br>
+          </label>
+
+          <label>Tipo de juego del equipo: <br>
+            <input type="text" name="tipoJuego" value=""> <br>
+          </label>
+
+          <button type="submit">Actualizar</button>
+        </form><br><br>
+
+        <h2>Miembros del equipo:</h2><br>
+        Miembro: <br>
+
+        <br><br>
+        <form action="#" method="POST">
+          <label>Nombre del nuevo miembro: <br>
+            <input type="text" name="user_miembro" value=""> <br>
+          </label>
+
+          <input type="hidden" name="equipo_id">
+          <button type="submit">Añadir miembro</button>
+        </form>
+        <a class="button-right" href="/Equipos/show.html">Volver</a>
+      </div>
+    </section>
+  <script src="../js/dashboard.js"></script>
+</body>
+</html>

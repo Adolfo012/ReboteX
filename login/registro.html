@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReboteX Registro</title>
+    <link rel="preload" href="../css/login.css" as="style">
+    <link href="../css/login.css" rel="stylesheet">
+</head>
+<body class="form-body">
+    <!-- <header>
+        <nav class="nav">
+            <a href="#"> Inicio </a>
+            <a href="#"> Registro </a>
+            <a href="#"> Redes </a>
+            <a href="#"> Contacto </a>
+        </nav>
+    </heade> -->
+
+    <section class="form-section">
+        <div class="form-box"></div>
+            <div class="form-value">
+                <form id="register-form" method="POST" action="#">
+                    
+                    <h1 class="login-h1"> Registro </h1>
+                    
+                    <div class="inputbox">
+                        <input name="name" type="text" > <br>
+                        <label for=""> Nombre(s) </label>
+                    </div>
+                    <div class="inputbox">
+                        <input name="fsurname" type="text" > <br>
+                        <label for=""> Apellido Paterno </label>
+                    </div>
+                    <div class="inputbox">
+                        <input name="msurname" type="text" > <br>
+                        <label for=""> Apellido Materno </label>
+                    </div>
+                    <div class="inputbox-birthday">
+                        <label class="birthday">Fecha de Nacimiento</label>
+                        <input name="birthdate" type="date" > <br>
+                    </div>
+                    <div class="inputbox-gender">
+                        <label class="genero" >Género</label>
+                        <div class="radio-group">
+                            <input type="radio" id="male" name="gender" value="male" > <br>
+                            <label for="male">Hombre</label>
+                            <input type="radio" id="female" name="gender" value="female" > <br>
+                            <label for="female">Mujer</label>
+                            <input type="radio" id="non-binary" name="gender" value="non-binary" > <br>
+                            <label for="non-binary"><br><br>Sin mencionar</label>
+                        </div>
+                    </div>
+                    <div class="inputbox">
+                        <input name="nickname" type="text" > <br>
+                        <label for=""> Apodo </label>
+                    </div>
+                    <div class="inputbox">
+                        <input name="email" type="email" > <br>
+                        <label for=""> Correo </label>
+                    </div>
+                    <div class="inputbox">
+                        <input name="password" type="password" >
+                        <label for=""> Contraseña </label>
+                    </div>
+                    <div class="inputbox">
+                        <input name="confirmpassword" type="password" >
+                        <label for=""> Confirmar Contraseña </label>
+                    </div>
+                    <button class="login-button" type="submit"> Registrarse </button>
+                    <a class="back-form" href="./login.html">Volver</a>
+                </form>
+            </div>
+    </section>
+    <!-- <script src="../js/form.js"></script> -->
+</body>
+</html>

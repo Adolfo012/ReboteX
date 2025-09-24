@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Torneo - Detalle</title>
+    <link rel="preload" href="../css/dashboard.css" as="style">
+    <link href="../css/dashboard.css" rel="stylesheet">
+    <link rel="preload" href="../css/forms.css" as="style">
+    <link href="../css/forms.css" rel="stylesheet">
+    <link href="../css/torneo.css" rel="stylesheet">
+    <link rel="preload" href="../css/torneo.css" as="style">
+</head>
+<body class="page-torneo-show">
+    <div id="slidebar"></div>
+    <main class="home-section">
+        <section class="principalbox tournament-page">
+            <header class="tp-header">
+                <h1 class="tp-title">Torneo: <span class="tp-accent">Nombre del Torneo</span></h1>
+            </header>
+
+            <section class="tp-section">
+                <h2>Información</h2>
+                <dl class="tp-info-grid">
+
+                    <dt>Organizador:</dt>
+                    <dd class="tp-accent">Nombre del organizador</dd>
+
+                    <dt>Detalles:</dt>
+                    <dd class="tp-accent">Descripción del torneo</dd>
+
+                    <dt>Ubicación de torneo:</dt>
+                    <dd class="tp-accent">Ubicación</dd>
+
+                    <dt>Fecha de comienzo:</dt>
+                    <dd class="tp-accent">AAAA-MM-DD</dd>
+
+                    <dt>Fecha de finalización:</dt>
+                    <dd class="tp-accent">AAAA-MM-DD</dd>
+
+                    <dt>Tipo de torneo:</dt>
+                    <dd class="tp-accent">Individual / Equipos</dd>
+
+                    <dt>Cantidad de miembros admitida:</dt>
+                    <dd class="tp-accent">0</dd>
+                </dl>
+            </section>
+
+            <section class="tp-section">
+                <h2>Tabla General</h2>
+                <div class="tp-table-wrap">
+                    <table class="tp-table">
+                        <thead>
+                            <tr>
+                                <th>Equipo</th>
+                                <th>Puntaje</th>
+                                <th>DC</th>
+                                <th>CA</th>
+                                <th>CC</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="5" style="text-align:center;">Sin datos</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="tp-section">
+                <h2>Próximos Partidos</h2>
+                <div class="tp-table-wrap">
+                    <table class="tp-table">
+                        <thead>
+                            <tr>
+                                <th>Equipo Local</th>
+                                <th>PL</th>
+                                <th>PV</th>
+                                <th>Equipo Visitante</th>
+                                <th>Fecha</th>
+                                <th>Hora</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="6" style="text-align:center;">Sin partidos programados</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="tp-section">
+                <div class="tp-list-grid">
+                    <div>
+                        <h2>Equipos en el torneo</h2>
+                        <ul class="tp-list">
+                            <li>—</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h2>Jugadores TOP</h2>
+                        <ul class="tp-list">
+                            <li>—</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <div class="flex-contianer">
+                    <a class="button-right" href="edit.html">Editar torneo</a>
+                    <form action="#" method="POST">
+                        <button class="button-left" type="submit" style="height: 45px; margin-top: 13px;"> Eliminar torneo </button>
+                    </form>
+                    <a class="button-right" href="/partidos/create.html">Crear partidos</a>
+                <a class="button-right" href="/client/dashboard.html">Volver</a>
+            </div>
+        </section>
+        <footer class="footer">
+            <p>© 2025 ReboteX - Todos los derechos reservados</p>
+        </footer>
+    </main>
+
+    <script src="../js/dashboard.js"></script>
+</body>
+</html>
