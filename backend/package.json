@@ -4,10 +4,15 @@
   "description": "Backend para la aplicación ReboteX - Sistema de gestión de torneos",
   "main": "index.js",
   "type": "module",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "test": "node test-register.js"
+    "test": "node test-register.js",
+    "build": "echo 'No build step required for Node.js'"
   },
   "keywords": ["torneos", "deportes", "backend", "api"],
   "author": "ReboteX Team",
