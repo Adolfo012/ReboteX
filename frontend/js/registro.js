@@ -1,6 +1,6 @@
 // registro.js
 
-const BACKEND_URL = window.REBOTE_BACKEND_URL || "http://localhost:3000";
+const BACKEND_URL = window.REBOTE_BACKEND_URL || "https://rebotex-backend.onrender.com";
 const form = document.getElementById("register-form");
 const passwordInput = form.password;
 const confirmInput = form.confirmpassword;
