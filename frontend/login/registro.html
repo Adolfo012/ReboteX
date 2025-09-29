@@ -25,53 +25,56 @@
                     <h1 class="login-h1"> Registro </h1>
                     
                     <div class="inputbox">
-                        <input name="name" type="text" > <br>
+                        <input name="name" type="text" required> <br>
                         <label for=""> Nombre(s) </label>
                     </div>
                     <div class="inputbox">
-                        <input name="fsurname" type="text" > <br>
+                        <input name="fsurname" type="text" required> <br>
                         <label for=""> Apellido Paterno </label>
                     </div>
                     <div class="inputbox">
-                        <input name="msurname" type="text" > <br>
+                        <input name="msurname" type="text" required> <br>
                         <label for=""> Apellido Materno </label>
                     </div>
                     <div class="inputbox-birthday">
                         <label class="birthday">Fecha de Nacimiento</label>
-                        <input name="birthdate" type="date" > <br>
+                        <input name="birthdate" type="date" required> <br>
                     </div>
                     <div class="inputbox-gender">
                         <label class="genero" >Género</label>
                         <div class="radio-group">
-                            <input type="radio" id="male" name="gender" value="male" > <br>
-                            <label for="male">Hombre</label>
-                            <input type="radio" id="female" name="gender" value="female" > <br>
-                            <label for="female">Mujer</label>
-                            <input type="radio" id="non-binary" name="gender" value="non-binary" > <br>
-                            <label for="non-binary"><br><br>Sin mencionar</label>
+                            <input type="radio" id="hombre" name="gender" value="hombre" required> <br>
+                            <label for="hombre">Hombre</label>
+                            <input type="radio" id="mujer" name="gender" value="mujer" required> <br>
+                            <label for="mujer">Mujer</label>
+                            <input type="radio" id="otro" name="gender" value="otro" required> <br>
+                            <label for="otro"><br><br>Sin mencionar</label>
                         </div>
                     </div>
                     <div class="inputbox">
-                        <input name="nickname" type="text" > <br>
+                        <input name="nickname" type="text" required> <br>
                         <label for=""> Apodo </label>
                     </div>
                     <div class="inputbox">
-                        <input name="email" type="email" > <br>
+                        <input name="email" type="email" required> <br>
                         <label for=""> Correo </label>
                     </div>
                     <div class="inputbox">
-                        <input name="password" type="password" >
+                        <input name="password" type="password" required>
                         <label for=""> Contraseña </label>
                     </div>
                     <div class="inputbox">
-                        <input name="confirmpassword" type="password" >
+                        <input name="confirmpassword" type="password" required>
                         <label for=""> Confirmar Contraseña </label>
+                        <small id="password-error" style="color:#ff6b6b; display:none;">Las contraseñas no coinciden</small>
                     </div>
-                    <button class="login-button" type="submit"> Registrarse </button>
+                    <button id="register-submit" class="login-button" type="submit" disabled> Registrarse </button>
                     <a class="back-form" href="./login.html">Volver</a>
                 </form>
             </div>
     </section>
-    <!-- <script src="../js/form.js"></script> -->
+
+    <script src="../js/registro.js"></script>
+
 </body>
 </html>

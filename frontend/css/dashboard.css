@@ -370,6 +370,7 @@ body.sidebar-open .home-section {
   text-align: left;
   padding: 0 60px;
   margin-bottom: 40px;
+  position: relative;
 }
 
 .title {
@@ -377,12 +378,91 @@ body.sidebar-open .home-section {
   align-self: flex-start;
 }
 
-.box {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
-    margin: 0;
-    margin: 0 60px;
+/* Contenedor del carrusel */
+.carousel-container {
+  position: relative;
+  margin: 0 60px;
+  padding: 0 60px; /* Espacio para las flechas laterales (50px + 10px margen) */
+  box-sizing: border-box;
+  overflow: hidden; /* Ocultar tarjetas que excedan el área visible */
+  width: calc(5 * 220px + 4 * 16px + 120px); /* Ancho fijo para 5 tarjetas + espacio para flechas */
+  max-width: calc(100% - 120px); /* No exceder el ancho disponible */
+}
+
+/* Contenedor interno del carrusel */
+.carousel-container .box {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 16px;
+  margin: 0;
+  transition: transform 0.3s ease;
+  overflow: visible; /* Permitir que las tarjetas se muevan */
+  padding: 0;
+  box-sizing: border-box;
+  width: auto; /* Ancho automático para permitir el movimiento */
+}
+
+/* Flechas de navegación */
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--complementA);
+  color: var(--primary);
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.carousel-arrow:hover {
+  background: var(--complementB);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-arrow:disabled {
+  background: #ccc;
+  color: #666;
+  cursor: not-allowed;
+  transform: translateY(-50%) scale(1);
+}
+
+.carousel-arrow.left {
+  left: 10px; /* Posicionada en el padding izquierdo */
+}
+
+.carousel-arrow.right {
+  right: 10px; /* Posicionada en el padding derecho */
+}
+
+/* Ocultar flechas cuando no son necesarias */
+.carousel-container.no-scroll .carousel-arrow {
+  display: none;
+}
+
+/* Asegurar que las secciones sin carrusel mantengan su estilo original */
+.principalbox:not(:first-child):not(.has-carousel) .box {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  transform: none !important;
+  overflow-x: visible;
+}
+
+/* Ajustar específicamente solo el contenedor de tarjetas de equipos SIN carrusel para evitar superposición con sidebar */
+.principalbox:nth-child(2):not(.has-carousel) .box {
+  margin-left: 78px; /* Espacio para el sidebar */
+  width: calc(100% - 78px);
 }
 
 .minibox {
@@ -397,6 +477,13 @@ body.sidebar-open .home-section {
   backdrop-filter: blur(4px);
   box-shadow: 0 6px 14px rgba(0,0,0,.06);
   transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.carousel-container .minibox {
+  flex: 0 0 auto;
+  width: 220px; /* Ancho fijo para cada tarjeta */
+  min-width: 220px;
+  max-width: 220px;
 }
 
 .minibox:hover {

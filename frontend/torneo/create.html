@@ -15,32 +15,32 @@
         <section class="principalbox">
             <div class="contorno">
                 <h1>Crear Torneo</h1>
-                <form action="#" method="POST">
+                <form id="torneoForm" action="#" method="POST">
                     <label>Nombre de torneo: <br>
-                        <input type="text" name="name"> <br>
+                        <input type="text" name="nombre" required maxlength="150"> <br>
                     </label>
 
                     <label>Ubicación: <br>
-                        <input type="text" name="ubicacion"> <br>
+                        <input type="text" name="ubicacion" maxlength="150"> <br>
                     </label>
 
                     <label>Descripción: <br>
-                        <input type="text" name="descripcion"> <br>
+                        <input type="text" name="descripcion" maxlength="250"> <br>
                     </label>
 
                     <label>Fecha de Inicio: <br>
-                        <input type="date" name="fechaInicio"> <br>
+                        <input type="date" name="fecha_inicio" required> <br>
                     </label>
 
                     <label>Fecha de Fin: <br>
-                        <input type="date" name="fechaFin"> <br>
+                        <input type="date" name="fecha_fin"> <br>
                     </label>
 
                     <label class="tipo torneo">Elige el tipo de torneo:</label><br>
-                    <label for="Individual">Individual</label>
-                    <input type="radio" id="Individual" name="tipoTorneo" value="Individual" required> <br>
-                    <label for="Equipos">Equipos</label>
-                    <input type="radio" id="Equipos" name="tipoTorneo" value="Equipos" required>
+                    <label for="individual">Individual</label>
+                    <input type="radio" id="individual" name="modalidad" value="individual" required> <br>
+                    <label for="equipos">Equipos</label>
+                    <input type="radio" id="equipos" name="modalidad" value="equipos" required>
                     <br>
 
                     <label for="cantidad" style="display: none">
@@ -51,9 +51,9 @@
 
                     <script>
                         // Mostrar/ocultar campos adicionales según el tipo de torneo
-                        document.querySelectorAll('input[name="tipoTorneo"]').forEach(function(radio) {
+                        document.querySelectorAll('input[name="modalidad"]').forEach(function(radio) {
                             radio.addEventListener('change', function() {
-                                var show = (this.value === 'Individual' || this.value === 'Equipos');
+                                var show = (this.value === 'individual' || this.value === 'equipos');
                                 document.getElementById('cantEquipo').style.display = show ? 'block' : 'none';
                                 var qtyLabel = document.querySelector('label[for="cantidad"]');
                                 if (qtyLabel) qtyLabel.style.display = show ? 'block' : 'none';
@@ -62,8 +62,8 @@
 
                         // Estado inicial seguro cuando no hay radio seleccionado aún
                         document.addEventListener('DOMContentLoaded', function() {
-                            var checked = document.querySelector('input[name="tipoTorneo"]:checked');
-                            var show = checked && (checked.value === 'Individual' || checked.value === 'Equipos');
+                            var checked = document.querySelector('input[name="modalidad"]:checked');
+                            var show = checked && (checked.value === 'individual' || checked.value === 'equipos');
                             document.getElementById('cantEquipo').style.display = show ? 'block' : 'none';
                             var qtyLabel = document.querySelector('label[for="cantidad"]');
                             if (qtyLabel) qtyLabel.style.display = show ? 'block' : 'none';
@@ -85,5 +85,6 @@
     </footer>
     
     <script src="../js/dashboard.js"></script>
+    <script src="../js/create-torneo.js"></script>
 </body>
 </html>

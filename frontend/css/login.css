@@ -101,7 +101,29 @@
     padding: 0 35px 0 5px;
     color: var(--primary);
 }
-
+/* Autofill: evitar fondo blanco del navegador y mantener colores del tema */
+.inputbox input:-webkit-autofill,
+.inputbox input:-webkit-autofill:hover,
+.inputbox input:-webkit-autofill:focus,
+.inputbox-forgot input:-webkit-autofill,
+.inputbox-forgot input:-webkit-autofill:hover,
+.inputbox-forgot input:-webkit-autofill:focus,
+.inputbox-birthday input:-webkit-autofill,
+.inputbox-birthday input:-webkit-autofill:hover,
+.inputbox-birthday input:-webkit-autofill:focus {
+    -webkit-text-fill-color: var(--primary) !important;
+    caret-color: var(--primary);
+    /* Truco: usar box-shadow inset gigante para "aplanar" el fondo del autofill */
+    box-shadow: 0 0 0px 1000px transparent inset !important;
+    transition: background-color 99999s ease-in-out 0s !important;
+}
+/* Firefox fallback */
+.inputbox input:-moz-autofill,
+.inputbox-forgot input:-moz-autofill,
+.inputbox-birthday input:-moz-autofill {
+    color: var(--primary);
+    background-color: transparent !important;
+}
 .inputbox ion-icon {
     position: absolute;
     right: 0px;
