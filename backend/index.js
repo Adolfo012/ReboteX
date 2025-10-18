@@ -1,4 +1,4 @@
-// index.js - Servidor principal de ReboteX Backend (Railway listo)
+// index.js - Servidor principal (Railway listo)
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
