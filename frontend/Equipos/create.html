@@ -1,43 +1,112 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crear equipo</title>
+    <title>Crear Equipo - ReboteX</title>
+    <!-- Estilos del dashboard y tema futurista -->
     <link rel="preload" href="../css/dashboard.css" as="style">
     <link href="../css/dashboard.css" rel="stylesheet">
-    <link rel="preload" href="../css/forms.css" as="style">
-    <link href="../css/forms.css" rel="stylesheet">
-    <link rel="preload" href="../css/formschico.css" as="style">
-    <link href="../css/formschico.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/dashboard-torneo.css">
+    <link href="../css/dashboard-torneo.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/dash.css">
+    <link href="../css/dash.css" rel="stylesheet">
+    <!-- Ajustes específicos de la vista Crear Equipo -->
+    <link rel="stylesheet" href="../css/equipos-create.css">
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Fuentes futuristas -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600;700&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
-<body>
-    <div id="slidebar"></div>
-
-    <section class="principalbox">
-        <div class="contorno">
-            <h1>Crear Equipo</h1>
-            <form action="#" method="POST">
-                <label>Nombre de equipo: <br><br>
-                    <input type="text" name="name" value=""> <br>
-                </label>
-
-                <div class="flex-contianer">
-                    <button type="submit" class="button-left" style="height: 45px; margin-top: 13px;">
-                        Crear
-                    </button>
-                    <a href="../client/dashboard.html" class="button-right">Volver</a>
-                </div>
-
-                <!-- <a href="/equipos">Volver</a> -->
-            </form>
+<body class="futuristic-theme no-scroll">
+    <!-- Header idéntico a client/dashboard.html -->
+    <header class="futuristic-header">
+        <div class="header-background">
+            <div class="header-grid"></div>
+            <div class="header-particles"></div>
         </div>
-    </section>
+        <div class="header-content">
+            <div class="header-brand">
+                <div class="brand-icon">
+                    <img src="../sources/rebotex-logo.svg" alt="ReboteX Logo" class="rebotex-logo" />
+                </div>
+                <div class="brand-text">
+                    <h1 class="brand-title">ReboteX</h1>
+                    <span class="brand-subtitle">Tournament Management System</span>
+                </div>
+            </div>
+            <nav class="header-nav">
+                <a href="../client/dashboard.html" class="nav-btn">
+                    <i class="fas fa-home"></i>
+                    <span>Inicio</span>
+                </a>
+                <a href="../torneo/create.html" class="nav-btn">
+                    <i class="fas fa-trophy"></i>
+                    <span>Crear Torneo</span>
+                </a>
+                <a href="../Equipos/create.html" class="nav-btn">
+                    <i class="fas fa-users"></i>
+                    <span>Crear Equipo</span>
+                </a>
+                <a href="../Notificaciones/Notis.html" class="nav-btn">
+                    <i class="fas fa-bell"></i>
+                    <span>Notificaciones</span>
+                </a>
+                <a href="#" class="nav-btn">
+                    <i class="fas fa-user"></i>
+                    <span>Perfil</span>
+                </a>
+                <a href="../client/Nosotros.html" class="nav-btn">
+                    <i class="fas fa-info-circle"></i>
+                    <span>Sobre Nosotros</span>
+                </a>
+                <button class="nav-btn logout-btn" onclick="cerrarSesion()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Cerrar Sesión</span>
+                </button>
+            </nav>
+        </div>
+    </header>
 
-    <footer class="footer">
-        <p>© 2025 ReboteX - Todos los derechos reservados</p>
-    </footer>
+    <!-- Contenido principal con tarjeta futurista -->
+    <main class="home-section">
+        <section class="principalbox create-team-section">
+            <div class="futuristic-card">
+                <div class="card-header">
+                    <div class="card-icon"><i class="fas fa-users"></i></div>
+                    <h2 class="card-title">Crear Equipo</h2>
+                </div>
+                <div class="card-content">
+                    <form id="equipoForm" action="#" method="POST">
+                        <div class="form-group">
+                            <label for="team-name">Nombre del equipo</label>
+                            <input type="text" id="team-name" name="name" placeholder="Introduce el nombre del equipo" required>
+                        </div>
+                        <div class="form-actions" style="display:flex; gap:12px; justify-content:flex-end;">
+                            <a href="../client/dashboard.html" class="futuristic-btn secondary">
+                                <i class="fas fa-arrow-left"></i>
+                                <span>Volver</span>
+                            </a>
+                            <button type="submit" class="futuristic-btn">
+                                <i class="fas fa-check"></i>
+                                <span>Crear</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
 
-    <script src="../js/dashboard.js"></script>
+        <!-- Footer básico igual al dashboard -->
+        <footer class="footer-basic">
+            © 2025 ReboteX. Todos los derechos reservados.
+        </footer>
+    </main>
+
+    <!-- Config y script de creación de equipo -->
+  <script src="../js/auth.js"></script>
+  <script src="../js/config.js"></script>
+  <script src="../js/dashboard.js"></script>
+  <script src="../js/create-equipo.js"></script>
 </body>
 </html>

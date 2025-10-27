@@ -4,34 +4,94 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nosotros</title>
-    <link rel="preload" href="../css/dashboard.css" as="style">
-    <link href="../css/dashboard.css" rel="stylesheet">
-    <link rel="preload" href="../css/forms.css" as="style">
-    <link href="../css/forms.css" rel="stylesheet">
-    <link rel="preload" href="../css/formschico.css" as="style">
-    <link href="../css/formschico.css" rel="stylesheet">
+    <!-- Estilos futuristas compartidos -->
+    <link rel="stylesheet" href="../css/dashboard-torneo.css">
+    <link href="../css/dashboard-torneo.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/dash.css">
+    <link href="../css/dash.css" rel="stylesheet">
+    <!-- Estilos específicos de esta página -->
+    <link rel="stylesheet" href="../css/nosotros.css">
+    <!-- Iconos y fuentes -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600;700&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
-<body>
-    <div id="slidebar"></div>
-
-    <section class="principalbox">
-        <div class="contorno">
-            <h1 class="title">Nosotros</h1>
-            <p class="nosotrosp">
-                <b class="bold">ReboteX</b> es una plataforma web que permite la creación de
-                torneos locales en donde los usuarios pueden disfrutar de participar
-                en eventos competitivos y así promover el deporte, la diversión y el entusiasmo.
-                <br> <b class="bold"">Contacto:</b>33-22-11-54-32
-                <br> <b class="bold">Correo electrónico de contacto:</b> ReboteX@gmail.com
-                <br>© <b class="bold">Coopyright todos los derechos reservados.</b>
-            </p>
+<body class="futuristic-theme">
+    <!-- Header/navegación del dashboard -->
+    <header class="futuristic-header">
+        <div class="header-background">
+            <div class="header-grid"></div>
+            <div class="header-particles"></div>
         </div>
-    </section>
+        <div class="header-content">
+            <div class="header-brand">
+                <div class="brand-icon">
+                    <img src="../sources/rebotex-logo.svg" alt="ReboteX Logo" class="rebotex-logo" />
+                </div>
+                <div class="brand-text">
+                    <h1 class="brand-title">ReboteX</h1>
+                    <span class="brand-subtitle">Tournament Management System</span>
+                </div>
+            </div>
+            <nav class="header-nav">
+                <a href="../client/dashboard.html" class="nav-btn">
+                    <i class="fas fa-home"></i>
+                    <span>Inicio</span>
+                </a>
+                <a href="../torneo/create.html" class="nav-btn">
+                    <i class="fas fa-trophy"></i>
+                    <span>Crear Torneo</span>
+                </a>
+                <a href="../Equipos/create.html" class="nav-btn">
+                    <i class="fas fa-users"></i>
+                    <span>Crear Equipo</span>
+                </a>
+                <a href="../Notificaciones/Notis.html" class="nav-btn">
+                    <i class="fas fa-bell"></i>
+                    <span>Notificaciones</span>
+                </a>
+                <a href="#" class="nav-btn">
+                    <i class="fas fa-user"></i>
+                    <span>Perfil</span>
+                </a>
+                <a href="Nosotros.html" class="nav-btn">
+                    <i class="fas fa-info-circle"></i>
+                    <span>Sobre Nosotros</span>
+                </a>
+                <button class="nav-btn logout-btn" onclick="cerrarSesion()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Cerrar Sesión</span>
+                </button>
+            </nav>
+        </div>
+    </header>
 
-    <footer class="footer">
-        <p>© 2025 ReboteX - Todos los derechos reservados</p>
+    <main class="home-section">
+        <section class="principalbox about-section">
+            <article class="futuristic-card about-card">
+                <header class="card-header">
+                    <h2 class="title">Nosotros</h2>
+                </header>
+                <div class="card-content">
+                    <p>
+                        <strong>ReboteX</strong> es una plataforma web que permite la creación de torneos locales,
+                        donde los usuarios pueden participar en eventos competitivos y así promover el deporte,
+                        la diversión y el entusiasmo.
+                    </p>
+                    <p>
+                        <strong>Contacto:</strong> 33-22-11-54-32
+                        <br><strong>Correo electrónico:</strong> ReboteX@gmail.com
+                    </p>
+                    <p class="copyright">© 2025 ReboteX — Todos los derechos reservados.</p>
+                </div>
+            </article>
+        </section>
+    </main>
+
+    <footer class="footer-basic">
+        © 2025 ReboteX. Todos los derechos reservados.
     </footer>
 
+    <script src="../js/auth.js"></script>
     <script src="../js/dashboard.js"></script>
 </body>
 </html>

@@ -1,0 +1,86 @@
+/* equipo-show.css - Estilo moderno para vista de equipo */
+
+:root {
+  --bg-deep: #0b1020;
+  --bg-elev: #141a2e;
+  --accent-cyan: #00e5ff;
+  --accent-magenta: #ff3df2;
+  --text-primary: #e6f0ff;
+  --text-secondary: #b0b8c4;
+  --border-soft: rgba(255,255,255,0.15);
+}
+
+body.equipo-theme {
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+  color: var(--text-primary);
+  min-height: 100vh;
+  display: flex;          /* empuja el footer al final */
+  flex-direction: column; /* contenido arriba, footer abajo */
+}
+
+/* main debe ocupar el espacio disponible */
+.home-section { flex: 1 0 auto; }
+
+.equipo-container { padding: 24px; max-width: 1100px; margin: 0 auto; }
+.card {
+  background: linear-gradient(180deg, rgba(20,26,46,0.85), rgba(20,26,46,0.7));
+  border: 1px solid var(--border-soft);
+  border-radius: 12px;
+  padding: 16px 18px;
+}
+
+.equipo-header { display:flex; align-items:center; justify-content:space-between; margin: 18px 0; }
+.title { font-family: 'Orbitron', sans-serif; font-weight: 700; letter-spacing: 0.6px; }
+.title-label { color: var(--accent-cyan); text-shadow: 0 0 6px rgba(0,229,255,0.5); }
+.title-value { color: var(--text-primary); }
+.meta { color: var(--text-secondary); margin-top: 6px; }
+.meta-list { color: var(--text-secondary); margin-top: 6px; padding: 0; list-style: none; }
+.meta-list li { display: flex; align-items: center; gap: 6px; line-height: 1.4; }
+.meta-label { font-weight: 700; }
+.actions { display:flex; gap:10px; }
+/* Botón copiar UID */
+.copy-btn { background: transparent; color: var(--text-secondary); border: 1px solid var(--border-soft); border-radius: 6px; padding: 4px 8px; cursor: pointer; }
+.copy-btn i { font-size: 0.9rem; }
+.copy-btn:hover { color: var(--text-primary); border-color: var(--accent-cyan); }
+.copy-btn.copied { color: #2cf56c; border-color: rgba(44,245,108,0.5); }
+.btn { background: var(--accent-cyan); color: #08101b; border:none; border-radius:8px; padding:10px 14px; cursor:pointer; text-decoration:none; font-weight:600; display:inline-flex; align-items:center; justify-content:center; text-align:center; }
+.btn.secondary { background: transparent; color: var(--text-primary); border: 1px solid var(--border-soft); display:inline-flex; align-items:center; justify-content:center; }
+
+/* Botón eliminar: transparente con borde rojo */
+#btnEliminarEquipo { background: transparent; color: #ff3b3b; border: 2px solid #ff3b3b; }
+#btnEliminarEquipo:hover { background: rgba(255, 59, 59, 0.08); }
+.grid { display:grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.subtitle { margin-bottom: 10px; }
+.list { list-style:none; padding:0; margin:0 0 12px 0; }
+.list li { display:flex; justify-content:space-between; align-items:center; padding:8px 10px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+.list .name { color: var(--text-primary); }
+.list button { background: transparent; color: #ff7575; border: 1px solid rgba(255,117,117,0.5); border-radius: 6px; padding:6px 10px; cursor:pointer; }
+.inline-form { display:flex; gap:10px; }
+.inline-form input { flex:1; background: rgba(255,255,255,0.08); color: var(--text-primary); border: 1px solid var(--border-soft); border-radius: 8px; padding: 10px; }
+.inline-form input::placeholder { color: var(--text-secondary); }
+.feedback { display:block; margin-top:8px; opacity:0.8; }
+
+/* Tabla de torneos */
+.table-wrapper { overflow-x: auto; }
+.torneos-table { width: 100%; border-collapse: collapse; }
+.torneos-table th, .torneos-table td { padding: 10px 12px; border-bottom: 1px solid rgba(255,255,255,0.08); text-align: left; }
+.torneos-table th { color: var(--text-secondary); font-weight: 600; }
+.torneos-table tr { cursor: pointer; }
+.torneos-table tr:hover { background: rgba(255,255,255,0.06); }
+
+@media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+
+/* Ajustes para que la tabla futurista se vea igual que en torneo/show.html */
+.equipo-container .futuristic-card .futuristic-table {
+  width: 100% !important;
+  margin: 0 !important; /* anula márgenes globales de table en dashboard.css */
+}
+
+.equipo-container .futuristic-card .table-scroll {
+  overflow-x: hidden; /* sin scroll horizontal */
+}
+
+/* El encabezado de columna usa el gradiente del thead; evitar fondo negro de th global */
+.equipo-container .futuristic-card .futuristic-table thead th {
+  background: transparent !important;
+}

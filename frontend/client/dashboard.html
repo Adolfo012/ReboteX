@@ -1,147 +1,226 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ReboteX Client</title>
+    <title>ReboteX Dashboard</title>
     <link rel="preload" href="../css/dashboard.css" as="style">
     <link href="../css/dashboard.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/dashboard-torneo.css">
+    <link href="../css/dashboard-torneo.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/dash.css">
+    <link href="../css/dash.css" rel="stylesheet">
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Fuentes futuristas -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600;700&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
-<body>
-    <div id="slidebar"></div>
+<body class="futuristic-theme">
+    <!-- Futuristic Header -->
+    <header class="futuristic-header">
+        <div class="header-background">
+            <div class="header-grid"></div>
+            <div class="header-particles"></div>
+        </div>
+        <div class="header-content">
+            <div class="header-brand">
+                <div class="brand-icon">
+                    <img src="../sources/rebotex-logo.svg" alt="ReboteX Logo" class="rebotex-logo" />
+                </div>
+                <div class="brand-text">
+                    <h1 class="brand-title">ReboteX</h1>
+                    <span class="brand-subtitle">Tournament Management System</span>
+                </div>
+            </div>
+            <nav class="header-nav">
+                <a href="../client/dashboard.html" class="nav-btn">
+                    <i class="fas fa-home"></i>
+                    <span>Inicio</span>
+                </a>
+                <a href="../torneo/create.html" class="nav-btn">
+                    <i class="fas fa-trophy"></i>
+                    <span>Crear Torneo</span>
+                </a>
+                <a href="../Equipos/create.html" class="nav-btn">
+                    <i class="fas fa-users"></i>
+                    <span>Crear Equipo</span>
+                </a>
+                <a href="../Notificaciones/Notis.html" class="nav-btn">
+                    <i class="fas fa-bell"></i>
+                    <span>Notificaciones</span>
+                </a>
+                <a href="#" class="nav-btn">
+                    <i class="fas fa-user"></i>
+                    <span>Perfil</span>
+                </a>
+                <a href="Nosotros.html" class="nav-btn">
+                    <i class="fas fa-info-circle"></i>
+                    <span>Sobre Nosotros</span>
+                </a>
+                <button class="nav-btn logout-btn" onclick="cerrarSesion()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Cerrar Sesión</span>
+                </button>
+            </nav>
+        </div>
+    </header>
+    
     <main class="home-section">
         <section class="principalbox">
                 <p class="title">Mis Torneos</p>
-                <div class="box">
-                    <div class="minibox">
-                    <a class="name" href="../torneo/show.html">Liga Municipal 2024</a>
-                    <p class="description">Tipo: Baloncesto</p>
-                    <p class="description">Rol: Organizador</p>
+                <div class="swiper-container" id="torneos-swiper">
+                    <div class="swiper-wrapper" id="torneos-container">
+                        <!-- Los torneos se cargarán dinámicamente aquí -->
+                        <div class="swiper-slide loading-slide">
+                            <div class="tournament-card loading-card">
+                                <p class="description">Cargando torneos...</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="minibox">
-                        <a class="name" href="#">Copa Centro 3x3</a>
-                        <p class="description">Organizador: ReboteX</p>
-                        <p class="description">Equipo: Tigres</p>
-                        <p class="description">Tipo: Baloncesto</p>
-                        <p class="description">Rol: Capitán</p>
-                    </div>
-                            
-                    <div class="minibox">
-                        <a class="name" href="#">Interbarrios Norte</a> 
-                        <p class="description">Organizador: Liga Norte</p>
-                        <p class="description">Equipo: Halcones</p>
-                        <p class="description">Tipo: Baloncesto</p>
-                        <p class="description">Rol: Miembro</p>
-                    </div>
-                    <div class="minibox">
-                        <a href="#" class="name">Torneo Abierto</a>
-                        <p class="description">Organizador: Ayuntamiento</p>
-                        <p class="description">Tipo: Baloncesto</p>
-                        <p class="description">Rol: Individual</p>
-                    </div>
-                    <div class="minibox">
-                        <a href="#" class="name">Copa Primavera</a>
-                        <p class="description">Organizador: Club Deportivo</p>
-                        <p class="description">Equipo: Águilas</p>
-                        <p class="description">Tipo: Baloncesto</p>
-                        <p class="description">Rol: Jugador</p>
-                    </div>
-                    <div class="minibox">
-                        <a href="#" class="name">Liga Juvenil</a>
-                        <p class="description">Organizador: Federación</p>
-                        <p class="description">Tipo: Baloncesto</p>
-                        <p class="description">Rol: Organizador</p>
-                    </div>
-                    <div class="minibox">
-                        <a href="#" class="name">Torneo Verano 2024</a>
-                        <p class="description">Organizador: Centro Deportivo</p>
-                        <p class="description">Equipo: Leones</p>
-                        <p class="description">Tipo: Baloncesto</p>
-                        <p class="description">Rol: Capitán</p>
-                    </div>
-                    <div class="minibox">
-                        <a href="#" class="name">Copa Regional</a>
-                        <p class="description">Organizador: Liga Regional</p>
-                        <p class="description">Tipo: Baloncesto</p>
-                        <p class="description">Rol: Individual</p>
-                    </div>
+                    <!-- Navegación del swiper -->
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
                 </div>
             </section>
     
             <section class="principalbox">
                 <p class="title">Mis equipos</p>
-                <div class="box">
-                            <div class="minibox">
-                                <a class="name" href="../Equipos/show.html">Tigres de Barrio</a>
-                                <p class="teamdescription">Rol: Capitán</p>
-                            </div>
-                            <div class="minibox">
-                                <a class="name" href="#">Halcones GDL</a>
-                                <p class="teamdescription">Rol: Miembro</p>
-                            </div>
-                            <div class="minibox">
-                                <a class="name" href="#">Águilas Doradas</a>
-                                <p class="teamdescription">Rol: Jugador</p>
-                            </div>
-                            <div class="minibox">
-                                <a class="name" href="#">Leones FC</a>
-                                <p class="teamdescription">Rol: Capitán</p>
-                            </div>
-                            <div class="minibox">
-                                <a class="name" href="#">Panteras Negras</a>
-                                <p class="teamdescription">Rol: Miembro</p>
-                            </div>
-                            <div class="minibox">
-                                <a class="name" href="#">Lobos Grises</a>
-                                <p class="teamdescription">Rol: Jugador</p>
-                            </div>
-                            <div class="minibox">
-                                <a class="name" href="#">Cóndores Azules</a>
-                                <p class="teamdescription">Rol: Capitán</p>
-                            </div>
-                            <div class="minibox">
-                                <a class="name" href="#">Serpientes Verdes</a>
-                                <p class="teamdescription">Rol: Miembro</p>
-                            </div>
+                <div class="swiper-container" id="equipos-swiper">
+                    <div class="swiper-wrapper">
+                        <p class="description">Cargando equipos...</p>
+                    </div>
+                    <!-- Navegación del swiper -->
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
                 </div>
             </section>
             
             <section class="principalbox">
                 <p class="title">Próximos partidos</p>
-                <table>
-                    <thead>
-                    <tr>
-                        <th>Torneo</th>
-                        <th>Equipo Local</th>
-                        <th>Equipo Visitante</th>
-                        <th>Fecha</th>
-                        <th>Hora</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                            <tr>
-                                <td>Liga Municipal 2024</td>
-                                <td>Tigres</td>
-                                <td>Halcones</td>
-                                <td>24/09/2025</td>
-                                <td>19:30</td>
-                            </tr>
-                            <tr>
-                                <td>Copa Centro 3x3</td>
-                                <td>Rebeldes</td>
-                                <td>Fénix</td>
-                                <td>28/09/2025</td>
-                                <td>17:00</td>
-                            </tr>
-                    </tbody>
-                </table>
+                <div class="matches-container">
+                    <div class="match-card" data-datetime="2025-09-24T19:30:00">
+                        <div class="match-header">
+                            <span class="tournament-name">Liga Municipal 2024</span>
+                            <span class="match-date">24/09/2025</span>
+                        </div>
+                        <div class="match-teams">
+                            <div class="team local">
+                                <i class='bx bx-home'></i>
+                                <span>Tigres</span>
+                            </div>
+                            <div class="vs">VS</div>
+                            <div class="team visitante">
+                                <span>Halcones</span>
+                                <i class='bx bx-map'></i>
+                            </div>
+                        </div>
+                        <div class="match-time">
+                            <i class='bx bx-time'></i>
+                            <span>19:30</span>
+                        </div>
+                    </div>
+                    
+                    <div class="match-card" data-datetime="2025-09-28T17:00:00">
+                        <div class="match-header">
+                            <span class="tournament-name">Copa Centro 3x3</span>
+                            <span class="match-date">28/09/2025</span>
+                        </div>
+                        <div class="match-teams">
+                            <div class="team local">
+                                <i class='bx bx-home'></i>
+                                <span>Rebeldes</span>
+                            </div>
+                            <div class="vs">VS</div>
+                            <div class="team visitante">
+                                <span>Fénix</span>
+                                <i class='bx bx-map'></i>
+                            </div>
+                        </div>
+                        <div class="match-time">
+                            <i class='bx bx-time'></i>
+                            <span>17:00</span>
+                        </div>
+                    </div>
+                </div>
             </section>
 
-            <footer class="footer">
-                <p>© 2025 ReboteX - Todos los derechos reservados</p>
+            <!-- Footer básico dentro del diseño futurista -->
+            <footer class="footer-basic">
+                © 2025 ReboteX. Todos los derechos reservados.
             </footer>
         </main>
+        <script src="../js/auth.js"></script>
+        <script src="../js/config.js"></script>
         <script src="../js/dashboard.js"></script>
         <script src="../js/dashtorneo.js"></script>
+        <!-- Swiper JS -->
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+        <script>
+          // Inicializar carruseles: 5 tarjetas visibles, mover de 1 en 1
+          function initCarousel(containerId) {
+            const container = document.getElementById(containerId);
+            if (!container) return null;
+            const nextEl = container.querySelector('.swiper-button-next');
+            const prevEl = container.querySelector('.swiper-button-prev');
+
+            const swiper = new Swiper(container, {
+              slidesPerView: 5,
+              slidesPerGroup: 1,
+              spaceBetween: 16,
+              speed: 400,
+              navigation: { nextEl, prevEl },
+              breakpoints: {
+                1280: { slidesPerView: 5 },
+                1024: { slidesPerView: 4 },
+                768:  { slidesPerView: 3 },
+                560:  { slidesPerView: 2 },
+                0:    { slidesPerView: 1 }
+              }
+            });
+            // Mostrar flechas si hay más elementos que los visibles según breakpoint
+            function getSlidesPerView(sw) {
+              const bps = sw.params.breakpoints || {};
+              let visible = sw.params.slidesPerView;
+              const w = window.innerWidth;
+              const keys = Object.keys(bps).map(n => Number(n)).sort((a,b) => a - b);
+              for (const bp of keys) {
+                const conf = bps[bp] || {};
+                if (w >= bp && typeof conf.slidesPerView !== 'undefined') {
+                  visible = conf.slidesPerView;
+                }
+              }
+              return (typeof visible === 'number' && visible > 0) ? visible : 1;
+            }
+            function updateNav(sw) {
+              const total = sw.slides.length;
+              const visible = getSlidesPerView(sw);
+              if (total <= visible) {
+                container.classList.add('hide-nav');
+              } else {
+                container.classList.remove('hide-nav');
+              }
+            }
+            updateNav(swiper);
+            window.addEventListener('resize', () => updateNav(swiper));
+            return swiper;
+          }
+
+          const torneosSwiper = initCarousel('torneos-swiper');
+          const equiposSwiper = initCarousel('equipos-swiper');
+
+          // Ordenar próximos partidos por fecha/hora si hay atributos data-datetime
+          const matchesContainer = document.querySelector('.matches-container');
+          if (matchesContainer) {
+            const cards = Array.from(matchesContainer.querySelectorAll('.match-card'));
+            const parseDate = (el) => {
+              const dt = el.getAttribute('data-datetime');
+              return dt ? new Date(dt).getTime() : 0;
+            };
+            cards.sort((a,b) => parseDate(a) - parseDate(b));
+            cards.forEach(card => matchesContainer.appendChild(card));
+          }
+        </script>
     </body>
 </html>

@@ -209,8 +209,14 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
+    // Variable para evitar inicializaciones múltiples
+    let carouselsInitialized = false;
+    
     // Función para reinicializar todos los carruseles (útil para contenido dinámico)
     function reinitializeCarousels() {
+        // Evitar reinicializaciones múltiples
+        if (carouselsInitialized) return;
+        
         // Limpiar carruseles existentes
         document.querySelectorAll('.carousel-container').forEach(container => {
             const box = container.querySelector('.box');
@@ -225,53 +231,22 @@ document.addEventListener('DOMContentLoaded', function() {
         // Reinicializar carruseles para ambas secciones
         initializeCarousel('.principalbox:first-of-type'); // Sección "Mis Torneos"
         initializeCarousel('.principalbox:nth-of-type(2)'); // Sección "Mis Equipos"
+        
+        carouselsInitialized = true;
     }
     
-    // Inicializar carruseles para ambas secciones
-    const allSections = document.querySelectorAll('.principalbox');
-    allSections.forEach((section, index) => {
-        const title = section.querySelector('.title');
-        if (title) {
-            const titleText = title.textContent.trim();
-            if (titleText === 'Mis Torneos') {
-                initializeCarousel('.principalbox:first-of-type');
-            } else if (titleText === 'Mis equipos') {
-                initializeCarousel('.principalbox:nth-of-type(2)');
-            }
+    // Inicializar carruseles una sola vez
+    setTimeout(() => {
+        if (!carouselsInitialized) {
+            initializeCarousel('.principalbox:first-of-type'); // Sección "Mis Torneos"
+            initializeCarousel('.principalbox:nth-of-type(2)'); // Sección "Mis Equipos"
+            carouselsInitialized = true;
         }
-    });
+    }, 500); // Esperar a que el contenido se cargue
     
     // Exponer función global para reinicializar (útil si se actualiza el contenido dinámicamente)
-    window.reinitializeTournamentCarousel = reinitializeCarousels;
-    
-    // Observer para detectar cambios en el contenido (opcional)
-    const observer = new MutationObserver(function(mutations) {
-        mutations.forEach(function(mutation) {
-            if (mutation.type === 'childList') {
-                const target = mutation.target;
-                if (target.classList.contains('box') || target.closest('.principalbox')) {
-                    // Reinicializar carrusel si se detectan cambios en las tarjetas
-                    setTimeout(reinitializeCarousels, 100);
-                }
-            }
-        });
-    });
-    
-    // Observar cambios en ambas secciones
-    const tournamentSection = document.querySelector('.principalbox:first-of-type');
-    const teamsSection = document.querySelector('.principalbox:nth-of-type(2)');
-    
-    if (tournamentSection) {
-        observer.observe(tournamentSection, {
-            childList: true,
-            subtree: true
-        });
-    }
-    
-    if (teamsSection) {
-        observer.observe(teamsSection, {
-            childList: true,
-            subtree: true
-        });
-    }
+    window.reinitializeTournamentCarousel = function() {
+        carouselsInitialized = false;
+        reinitializeCarousels();
+    };
 });

@@ -1,0 +1,131 @@
+/* ===== Modal de edición: campos y formato ===== */
+.edit-form .form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.edit-form .form-field {
+  display: flex;
+  flex-direction: column;
+}
+.edit-form .form-span-2 {
+  grid-column: 1 / span 2;
+}
+.edit-form label {
+  color: #cfd8ff;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.edit-form input,
+.edit-form textarea {
+  background: #0f1629;
+  border: 1px solid #2a3b6e;
+  color: #eaf0ff;
+  padding: 10px 12px;
+  border-radius: 10px;
+  outline: none;
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+.edit-form input::placeholder,
+.edit-form textarea::placeholder {
+  color: #9aa9d9;
+  opacity: .85;
+}
+.edit-form input:focus,
+.edit-form textarea:focus {
+  border-color: #4c7dff;
+  box-shadow: 0 0 0 3px rgba(76,125,255,0.25);
+}
+.edit-form textarea {
+  resize: vertical;
+  min-height: 90px;
+}
+.modal-divider {
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(255,255,255,.05), rgba(76,125,255,.6), rgba(255,255,255,.05));
+  margin: 18px 0;
+}
+.invite-section .section-title {
+  color: #cfd8ff;
+  margin-bottom: 8px;
+}
+.invite-section .section-help {
+  color: #9aa9d9;
+  margin-bottom: 12px;
+}
+.invite-section .invite-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+#inviteEquipoId {
+  max-width: 240px;
+}
+/* Ocultar flechas del input number (ID equipo) */
+#inviteEquipoId::-webkit-outer-spin-button,
+#inviteEquipoId::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+#inviteEquipoId {
+  -moz-appearance: textfield; /* Firefox */
+}
+.section-feedback {
+  margin-top: 6px;
+  color: #9ee493;
+}
+
+/* Opcional: refuerzo visual de botones del modal */
+.modal-btn.confirm-btn {
+  background: linear-gradient(135deg, #ff7d7d, #ff9757);
+  color: #fff;
+}
+.modal-btn.cancel-btn {
+  background: rgba(255,255,255,0.08);
+  color: #eaf0ff;
+}
+
+/* ===== Input estilizado con icono (ID de equipo) ===== */
+.input-with-icon {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  background: #0f1629;
+  border: 1px solid #2a3b6e;
+  border-radius: 12px;
+  padding: 6px 10px;
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+.input-with-icon:focus-within {
+  border-color: #4c7dff;
+  box-shadow: 0 0 0 3px rgba(76,125,255,0.25);
+}
+.input-with-icon .input-icon {
+  color: #9aa9d9;
+  font-size: 16px;
+  margin-right: 8px;
+}
+.input-with-icon input {
+  border: none;
+  background: transparent;
+  color: #eaf0ff;
+  padding: 6px 4px;
+  width: 220px;
+  outline: none;
+}
+.input-with-icon input::placeholder {
+  color: #9aa9d9;
+}
+
+/* ===== Calendario blanco para inputs de fecha ===== */
+.edit-form input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1) brightness(1.4) contrast(1.2);
+  opacity: .95;
+}
+
+/* Refuerzo global: asegurar icono blanco en cualquier input date */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1) brightness(1.35) contrast(1.15) !important;
+  opacity: 1 !important;
+}

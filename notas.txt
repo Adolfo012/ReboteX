@@ -1,0 +1,8 @@
+Torneo
+| Ajustar tabla de jugadores para que abarque toda la sección.
+
+Perfil
+| Agregar ventana de perfil para cambiar correo, contraseña, apodo, información general de la cuenta.
+
+
+

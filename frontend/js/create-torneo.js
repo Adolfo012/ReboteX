@@ -84,7 +84,8 @@ class TorneoCreator {
         }
 
         try {
-            const response = await fetch('https://rebotex-backend.onrender.com/api/torneos/create', {
+            const BASE = (window.API_URL || window.REBOTE_BACKEND_URL || 'http://localhost:3000');
+            const response = await fetch(`${BASE}/api/torneos/create`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

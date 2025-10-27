@@ -1,94 +1,106 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Notificaciones</title>
     <link rel="preload" href="../css/formschico.css" as="style">
     <link href="../css/formschico.css" rel="stylesheet">
+    <link rel="preload" href="../css/notificaciones.css" as="style">
+    <link href="../css/notificaciones.css" rel="stylesheet">
+    <!-- Estilos compartidos del dashboard para header/nav y footer -->
+    <link rel="stylesheet" href="../css/dashboard-torneo.css">
+    <link href="../css/dashboard-torneo.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/dash.css">
+    <link href="../css/dash.css" rel="stylesheet">
+    <!-- Font Awesome para iconos del header -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600;700&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
-<body>
-    <div id="slidebar"></div>
+<body class="futuristic-theme">
+    <!-- Header/navegación del dashboard -->
+    <header class="futuristic-header">
+        <div class="header-background">
+            <div class="header-grid"></div>
+            <div class="header-particles"></div>
+        </div>
+        <div class="header-content">
+            <div class="header-brand">
+                <div class="brand-icon">
+                    <img src="../sources/rebotex-logo.svg" alt="ReboteX Logo" class="rebotex-logo" />
+                </div>
+                <div class="brand-text">
+                    <h1 class="brand-title">ReboteX</h1>
+                    <span class="brand-subtitle">Tournament Management System</span>
+                </div>
+            </div>
+            <nav class="header-nav">
+                <a href="../client/dashboard.html" class="nav-btn">
+                    <i class="fas fa-home"></i>
+                    <span>Inicio</span>
+                </a>
+                <a href="../torneo/create.html" class="nav-btn">
+                    <i class="fas fa-trophy"></i>
+                    <span>Crear Torneo</span>
+                </a>
+                <a href="../Equipos/create.html" class="nav-btn">
+                    <i class="fas fa-users"></i>
+                    <span>Crear Equipo</span>
+                </a>
+                <a href="../Notificaciones/Notis.html" class="nav-btn">
+                    <i class="fas fa-bell"></i>
+                    <span>Notificaciones</span>
+                </a>
+                <a href="#" class="nav-btn">
+                    <i class="fas fa-user"></i>
+                    <span>Perfil</span>
+                </a>
+                <a href="../client/Nosotros.html" class="nav-btn">
+                    <i class="fas fa-info-circle"></i>
+                    <span>Sobre Nosotros</span>
+                </a>
+                <button class="nav-btn logout-btn" onclick="cerrarSesion()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Cerrar Sesión</span>
+                </button>
+            </nav>
+        </div>
+    </header>
 
     <section class="principalbox">
-        <section class="contorno">
-            <h1 style="color: #3498db;">Notificaciones</h1>
-            <h3>¡Hola ! Aquí podrás encontrar las notificaciones de tus equipos y torneos que lideres.</h3>
+        <section class="contorno notis-container">
+            <header class="notis-header">
+                <h1 class="title">Notificaciones</h1>
+                <p class="subtitle">Invitaciones y solicitudes pendientes de tus equipos y torneos.</p>
+            </header>
 
-            <!-- Notificaciones de representantes (miembros-equipos) -->
-            <form action="#" method="post">
-                El usuario: <b></b> desea ser miembro del equipo
-                <b>""</b>.
-                <input type="hidden" name="equipo_id" value="" />
-                <input type="hidden" name="user_id" value="" />
-                <input type="hidden" name="user_id2" value="" />
-                <button type="submit" name="action" value="aceptada">Aceptar</button>
-                <button type="submit" name="action" value="rechazada">Rechazar</button>
-                <br>
-            </form>
+            <div class="notis-grid">
+                <section class="notis-panel" id="panel-capitan">
+                    <h2 class="panel-title"><i class="fas fa-users"></i> Invitaciones a tu equipo</h2>
+                    <div id="notis-capitan" class="panel-body empty"></div>
+                </section>
 
-            <!-- Notificaciones de organizadores torneos por equipo -->
-            <form action="#" method="post">
-                El equipo: <b></b> desea ser miembro del torneo por equipos
-                <b>.</b><input type="hidden" name="user_id" value="" />
-                <input type="hidden" name="equipo_id" value="" />
-                <input type="hidden" name="torneo_id" value="" />
-                <button type="submit" name="action" value="aceptada">Aceptar</button>
-                <button type="submit" name="action" value="rechazada">Rechazar</button>
-                <br>
-            </form>
+                <section class="notis-panel" id="panel-organizador">
+                    <h2 class="panel-title"><i class="fas fa-trophy"></i> Solicitudes a tus torneos</h2>
+                    <div id="notis-organizador" class="panel-body empty"></div>
+                </section>
+            </div>
 
-            <!-- Notificaciones de organizadores torneos individuales -->
-            <form action="#" method="post">
-                El participante: <b></b> desea ser miembro del torneo individual
-                <b>.</b>
-                <input type="hidden" name="user_id" value="" />
-                <input type="hidden" name="user_id2" value="" />
-                <input type="hidden" name="torneo_id" value="" />
-                <button type="submit" name="action" value="aceptada">Aceptar</button>
-                <button type="submit" name="action" value="rechazada">Rechazar</button>
-                <br>
-            </form>
-
-            <!-- Notificaciones de usuario (participante) -->
-            <form action="#" method="post">
-                Tú solicitud fue aceptada <b></b> y ahora eres participante del torneo
-                <b>.</b>
-                <input type="hidden" name="user_id" value="" />
-                <input type="hidden" name="torneo_id" value="" />
-                <button type="submit" name="action" value="rechazada">Aceptar</button>
-                <br>
-            </form>
-
-            <!-- Notificaciones de usuario (equipo) -->
-            <form action="#" method="post">
-                Tú solicitud de equipo fue aceptada <b></b> y ahora tú equipo
-                <b></b> es miembro del torneo <b>.</b>
-                <input type="hidden" name="user_id" value="" />
-                <input type="hidden" name="equipo_id" value="" />
-                <input type="hidden" name="torneo_id" value="" />
-                <button type="submit" name="action" value="rechazada">Aceptar</button>
-                <br>
-            </form>
-
-            <!-- Notificaciones de usuario (miembro) -->
-            <form action="#" method="post">
-                Tú solicitud fue aceptada <b></b> y ahora eres miembro del equipo
-                <b></b>
-                <input type="hidden" name="user_id" value="" />
-                <input type="hidden" name="equipo_id" value="" />
-                <button type="submit" name="action" value="rechazada">Aceptar</button>
-                <br>
-            </form>
-
-            <a class="button-right" href="../client/dashboard.html">Volver</a>
+            <div class="notis-actions">
+                <a class="btn-back" href="../client/dashboard.html">Volver</a>
+            </div>
         </section>
     </section>
 
-    <footer class="footer">
-        <p>© 2025 ReboteX - Todos los derechos reservados</p>
+    <!-- Footer del dashboard -->
+    <footer class="footer-basic">
+        © 2025 ReboteX. Todos los derechos reservados.
     </footer>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+    <script src="../js/auth.js"></script>
+    <!-- Configuración global del backend (asegura API_URL/REBOTE_BACKEND_URL coherentes) -->
+    <script src="../js/config.js"></script>
     <script src="../js/dashboard.js"></script>
+    <script src="../js/notificaciones.js"></script>
 </body>
 </html>

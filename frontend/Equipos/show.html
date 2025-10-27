@@ -1,41 +1,220 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Equipo</title>
-    <link rel="preload" href="../css/dashboard.css" as="style">
-    <link href="../css/dashboard.css" rel="stylesheet">
-    <link rel="preload" href="../css/formschico.css" as="style">
-    <link href="../css/formschico.css" rel="stylesheet">
+  <title>Equipo - ReboteX</title>
+  <!-- Estilos base y tema futurista (navbar y footer comunes) -->
+  <link rel="preload" href="../css/dashboard.css" as="style">
+  <link href="../css/dashboard.css" rel="stylesheet">
+  <link rel="preload" href="../css/dashboard-torneo.css" as="style">
+  <link href="../css/dashboard-torneo.css" rel="stylesheet">
+  <link rel="preload" href="../css/dash.css" as="style">
+  <link href="../css/dash.css" rel="stylesheet">
+  <!-- Estilos de esta página -->
+  <link rel="preload" href="../css/equipo-show.css" as="style">
+  <link href="../css/equipo-show.css" rel="stylesheet">
+  <!-- Iconos y fuentes usadas en el header -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600;700&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 
-<body>
-  <div id="slidebar"></div>
-    <section class="principalbox">
-      <section class="contorno">
-        <h1>Equipo: <br>Chimichangas</h1>
-        <p>Representante: 
-        <br>El equipo juega: <br></p><br>
+<body class="futuristic-theme equipo-theme">
+  <!-- Header común igual al resto de vistas -->
+  <header class="futuristic-header">
+    <div class="header-background">
+      <div class="header-grid"></div>
+      <div class="header-particles"></div>
+    </div>
+    <div class="header-content">
+      <div class="header-brand">
+        <div class="brand-icon">
+          <img src="../sources/rebotex-logo.svg" alt="ReboteX Logo" class="rebotex-logo" />
+        </div>
+        <div class="brand-text">
+          <h1 class="brand-title">ReboteX</h1>
+          <span class="brand-subtitle">Tournament Management System</span>
+        </div>
+      </div>
+      <nav class="header-nav">
+        <a href="../client/dashboard.html" class="nav-btn">
+          <i class="fas fa-home"></i>
+          <span>Inicio</span>
+        </a>
+        <a href="../torneo/create.html" class="nav-btn">
+          <i class="fas fa-trophy"></i>
+          <span>Crear Torneo</span>
+        </a>
+        <a href="../Equipos/create.html" class="nav-btn">
+          <i class="fas fa-users"></i>
+          <span>Crear Equipo</span>
+        </a>
+        <a href="../Notificaciones/Notis.html" class="nav-btn">
+          <i class="fas fa-bell"></i>
+          <span>Notificaciones</span>
+        </a>
+        <a href="#" class="nav-btn">
+          <i class="fas fa-user"></i>
+          <span>Perfil</span>
+        </a>
+        <a href="../client/Nosotros.html" class="nav-btn">
+          <i class="fas fa-info-circle"></i>
+          <span>Sobre Nosotros</span>
+        </a>
+        <button class="nav-btn logout-btn" onclick="cerrarSesion()">
+          <i class="fas fa-sign-out-alt"></i>
+          <span>Cerrar Sesión</span>
+        </button>
+      </nav>
+    </div>
+  </header>
 
-        <h2>Miembros del equipo:</h2><br>
-        Miembro: <br> <!-- cambiar miembro por backend name jugador.-->
-
-        <div class="flex-contianer">
-          <a class="button-right" href="../Equipos/edit.html">Editar equipo</a>
-
-          <form action="#" method="POST">
-            <button class="button-left" type="submit" style="height: 45px; margin-top: 13px;"> Eliminar equipo </button>
-          </form>
-
-          <a class="button-right" href="../client/dashboard.html">Volver</a>
+  <!-- Contenido principal -->
+  <main class="home-section">
+    <div class="equipo-container">
+      <section class="equipo-header card">
+        <div>
+          <h1 class="title">
+            <span class="title-label">Equipo:</span>
+            <span id="equipo-nombre" class="title-value">—</span>
+          </h1>
+          <ul class="meta-list">
+            <li><span class="meta-label">Representante:</span> <span id="equipo-representante">—</span></li>
+            <li><span class="meta-label">Deporte:</span> <span id="equipo-deporte">—</span></li>
+            <li><span class="meta-label">UID:</span> <span id="equipo-uid">—</span>
+              <button id="copy-uid-btn" class="copy-btn" title="Copiar UID" aria-label="Copiar UID"><i class="fas fa-copy"></i></button>
+            </li>
+          </ul>
+        </div>
+        <div class="actions">
+          <button id="btnEditarEquipo" class="btn" type="button">Editar equipo</button>
+          <button id="btnEliminarEquipo" class="btn" type="button">Eliminar equipo</button>
+          <a class="btn secondary" href="../client/dashboard.html">Volver</a>
         </div>
       </section>
-    </section>
-  <script src="../js/dashboard.js"></script>
 
-  <footer class="footer">
-        <p>© 2025 ReboteX - Todos los derechos reservados</p>
-  </footer>
+      <section class="grid">
+        <!-- Jugadores con encabezado futurista como en torneos -->
+        <div class="futuristic-card">
+          <div class="card-header">
+            <div class="card-icon">
+              <i class="fas fa-user-friends"></i>
+            </div>
+            <h2 class="card-title">Jugadores</h2>
+          </div>
+          <div class="card-content">
+            <p id="jugadores-empty" class="meta">Aún no hay jugadores en este equipo</p>
+            <ul id="jugadores-list" class="list"></ul>
+          </div>
+        </div>
+
+        <!-- Torneos inscritos con diseño de "Estadísticas" de torneo/show.html -->
+        <div class="futuristic-card">
+          <div class="card-header">
+            <div class="card-icon">
+              <i class="fas fa-chart-bar"></i>
+            </div>
+            <h2 class="card-title">Torneos inscritos</h2>
+          </div>
+          <div class="card-content">
+            <p id="torneos-empty" class="meta" style="display: none;">Aún no está inscrito en torneos</p>
+            <div id="torneos-table-scroll" class="table-scroll">
+              <table class="futuristic-table" id="torneos-table">
+                <thead>
+                  <tr>
+                    <th>Torneo</th>
+                    <th>P</th>
+                    <th>V</th>
+                    <th>D</th>
+                  </tr>
+                </thead>
+                <tbody id="torneos-tbody">
+                  <!-- filas dinámicas -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  </main>
+
+  <!-- Footer básico igual al resto de vistas -->
+  <footer class="footer-basic">© 2025 ReboteX. Todos los derechos reservados.</footer>
+
+  <!-- Scripts comunes -->
+  <script src="../js/auth.js"></script>
+  <script src="../js/config.js"></script>
+  <script src="../js/dashboard.js"></script>
+  <script src="../js/equipo-show.js"></script>
+  <script src="../js/equipo-delete.js"></script>
+  <link rel="stylesheet" href="../css/torneo-edit.css">
+  <style>
+    /* Corrección: que el botón Agregar no sobresalga del cuadro */
+    #equipoEditModal .invite-row {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: nowrap;
+    }
+    #equipoEditModal .invite-row .input-with-icon { flex: 1; }
+    #equipoEditModal .invite-row .modal-btn.confirm-btn {
+      flex: 0 0 auto;
+      height: 48px;
+      padding: 0 16px;
+      white-space: nowrap;
+    }
+    /* Contenido del modal un poco más estrecho para evitar desbordes */
+    #equipoEditModal .modal-content { max-width: 640px; }
+  </style>
+  <!-- Modal futurista para editar equipo (similar al de torneo) -->
+  <div class="modal-overlay" id="equipoEditModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-icon"><i class="fas fa-users-gear"></i></div>
+        <h3 class="modal-title">Editar Equipo</h3>
+      </div>
+      <div class="modal-body">
+        <form id="formEditarEquipo" class="edit-form">
+          <div class="form-grid">
+            <div class="form-field form-span-2">
+              <label for="editEquipoNombre">Nombre del equipo</label>
+              <input type="text" id="editEquipoNombre" placeholder="Nombre del equipo" required />
+            </div>
+          </div>
+        </form>
+
+        <hr class="modal-divider" />
+
+        <div class="invite-section">
+          <h4 class="section-title"><i class="fas fa-user-plus"></i> Agregar jugador</h4>
+          <p class="section-help">Ingresa el nombre del jugador para añadirlo al equipo.</p>
+          <div class="invite-row">
+            <div class="input-with-icon">
+              <i class="fas fa-id-badge input-icon"></i>
+              <input type="text" id="nuevoJugadorNombreModal" placeholder="Nombre del jugador" />
+            </div>
+            <button type="button" class="modal-btn confirm-btn" id="btnAgregarJugadorModal">
+              <i class="fas fa-plus"></i> Agregar
+            </button>
+          </div>
+          <div id="jugadorModalFeedback" class="section-feedback" aria-live="polite"></div>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button class="modal-btn cancel-btn" type="button" id="btnCancelarEditarEquipo">
+          <i class="fas fa-times"></i>
+          Cancelar
+        </button>
+        <button class="modal-btn confirm-btn" type="button" id="btnGuardarEquipo">
+          <i class="fas fa-check"></i>
+          Guardar Cambios
+        </button>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+  <script src="../js/equipo-edit-modal.js"></script>
 </body>
 </html>

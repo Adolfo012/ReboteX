@@ -1,144 +1,386 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Torneo - Detalle</title>
-    <link rel="preload" href="../css/dashboard.css" as="style">
-    <link href="../css/dashboard.css" rel="stylesheet">
-    <link rel="preload" href="../css/forms.css" as="style">
-    <link href="../css/forms.css" rel="stylesheet">
-    <link href="../css/torneo.css" rel="stylesheet">
-    <link rel="preload" href="../css/torneo.css" as="style">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Información del Torneo</title>
+    <link rel="stylesheet" href="../css/torneo.css">
+    <link rel="stylesheet" href="../css/dashboard-torneo.css">
+    <link rel="stylesheet" href="../css/torneo-edit.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Fuentes futuristas para coherencia visual -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600;700&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Overrides: evitar overflow de modal y tablas de jugadores con scroll -->
+    <style>
+      /* El modal no supera el alto de la ventana y su cuerpo hace scroll */
+      .modal-content { max-height: 90vh; display: flex; flex-direction: column; }
+      .modal-body { overflow-y: auto; }
+      /* Tab de jugadores: si hay muchas filas, permitir scroll interno */
+      #tab-players { max-height: 60vh; overflow: auto; }
+      /* Si existen contenedores .table-scroll, limitar aún más su altura */
+      #tab-players .table-scroll { max-height: 420px; overflow: auto; padding-right: 6px; }
+      @media (max-width: 768px) { #tab-players .table-scroll { max-height: 320px; } }
+      /* Evitar parpadeo del header: ocultar nav hasta conocer rol */
+      .header-nav.nav-guard { visibility: hidden; }
+      .header-nav.nav-ready { visibility: visible; }
+    </style>
 </head>
-<body class="page-torneo-show">
-    <div id="slidebar"></div>
-    <main class="home-section">
-        <section class="principalbox tournament-page">
-            <header class="tp-header">
-                <h1 class="tp-title">Torneo: <span class="tp-accent">Nombre del Torneo</span></h1>
-            </header>
+<body class="futuristic-theme">
+    <!-- Futuristic Header -->
+    <header class="futuristic-header">
+        <div class="header-background">
+            <div class="header-grid"></div>
+            <div class="header-particles"></div>
+        </div>
+        <div class="header-content">
+            <div class="header-brand">
+                <div class="brand-icon">
+                    <img src="../sources/rebotex-logo.svg" alt="ReboteX Logo" class="rebotex-logo" />
+                </div>
+                <div class="brand-text">
+                    <h1 class="brand-title">ReboteX</h1>
+                    <span class="brand-subtitle">Tournament Management System</span>
+                </div>
+            </div>
+            <nav class="header-nav nav-guard">
+                <a href="../client/dashboard.html" class="nav-btn">
+                    <i class="fas fa-home"></i>
+                    <span>Inicio</span>
+                </a>
+                <a href="../Notificaciones/Notis.html" class="nav-btn">
+                    <i class="fas fa-bell"></i>
+                    <span>Notificaciones</span>
+                </a>
+                <button class="nav-btn" id="btnAbrirEditar" type="button">
+                    <i class="fas fa-edit"></i>
+                    <span>Editar</span>
+                </button>
+                <button class="nav-btn delete-btn" onclick="confirmarEliminacion()">
+                    <i class="fas fa-trash"></i>
+                    <span>Eliminar</span>
+                </button>
+                <button class="nav-btn logout-btn" onclick="cerrarSesion()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Cerrar Sesión</span>
+                </button>
+            </nav>
+        </div>
+    </header>
 
-            <section class="tp-section">
-                <h2>Información</h2>
-                <dl class="tp-info-grid">
+    <!-- Modal de Confirmación de Eliminación -->
+    <div class="modal-overlay" id="deleteModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-icon">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <h3 class="modal-title">Confirmar Eliminación</h3>
+            </div>
+            <div class="modal-body">
+                <p>¿Estás seguro de que deseas eliminar este torneo?</p>
+                <p class="modal-warning">Esta acción no se puede deshacer.</p>
+            </div>
+            <div class="modal-actions">
+                <button class="modal-btn cancel-btn" onclick="cancelarEliminacion()">
+                    <i class="fas fa-times"></i>
+                    No, Cancelar
+                </button>
+                <button class="modal-btn confirm-btn" onclick="eliminarTorneo()">
+                    <i class="fas fa-check"></i>
+                    Sí, Eliminar
+                </button>
+            </div>
+        </div>
+    </div>
 
-                    <dt>Organizador:</dt>
-                    <dd class="tp-accent">Nombre del organizador</dd>
+    <!-- Modal Futurista de Edición de Torneo -->
+    <div class="modal-overlay" id="editModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-icon">
+                    <i class="fas fa-pen-to-square"></i>
+                </div>
+                <h3 class="modal-title">Editar Torneo</h3>
+            </div>
+            <div class="modal-body">
+                <form id="formEditarTorneo" class="edit-form">
+                    <div class="form-grid">
+                        <div class="form-field">
+                            <label for="editNombre">Nombre</label>
+                            <input type="text" id="editNombre" placeholder="Nombre del torneo" required />
+                        </div>
+                        <div class="form-field">
+                            <label for="editUbicacion">Ubicación</label>
+                            <input type="text" id="editUbicacion" placeholder="Ciudad, sede" />
+                        </div>
+                        <div class="form-field form-span-2">
+                            <label for="editDescripcion">Descripción</label>
+                            <textarea id="editDescripcion" rows="3" placeholder="Breve descripción"></textarea>
+                        </div>
+                        <div class="form-field">
+                            <label for="editFechaInicio">Fecha de inicio</label>
+                            <input type="date" id="editFechaInicio" />
+                        </div>
+                        <div class="form-field">
+                            <label for="editFechaFin">Fecha de fin</label>
+                            <input type="date" id="editFechaFin" />
+                        </div>
+                    </div>
+                </form>
 
-                    <dt>Detalles:</dt>
-                    <dd class="tp-accent">Descripción del torneo</dd>
+                <hr class="modal-divider" />
 
-                    <dt>Ubicación de torneo:</dt>
-                    <dd class="tp-accent">Ubicación</dd>
+                <div class="invite-section">
+                    <h4 class="section-title"><i class="fas fa-users"></i> Invitar equipo</h4>
+                    <p class="section-help">Ingresa el ID o UID del equipo para enviar una invitación (notificación al capitán).</p>
+                    <div class="invite-row">
+                        <div class="input-with-icon">
+                            <i class="fas fa-id-card input-icon"></i>
+                            <input type="text" id="inviteEquipoId" placeholder="ID o UID del equipo" />
+                        </div>
+                        <button type="button" class="modal-btn confirm-btn" id="btnInvitarEquipo">
+                            <i class="fas fa-paper-plane"></i> Invitar
+                        </button>
+                    </div>
+                    <div id="inviteFeedback" class="section-feedback" aria-live="polite"></div>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="modal-btn cancel-btn" type="button" id="btnCancelarEditar">
+                    <i class="fas fa-times"></i>
+                    Cancelar
+                </button>
+                <button class="modal-btn confirm-btn" type="button" id="btnGuardarCambios">
+                    <i class="fas fa-check"></i>
+                    Guardar Cambios
+                </button>
+            </div>
+        </div>
+    </div>
 
-                    <dt>Fecha de comienzo:</dt>
-                    <dd class="tp-accent">AAAA-MM-DD</dd>
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        <!-- Hero Section -->
+        <div class="futuristic-hero">
+            <div class="hero-background">
+                <div class="hero-grid"></div>
+                <div class="hero-particles"></div>
+            </div>
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <i class="fas fa-trophy"></i>
+                    Información del Torneo
+                </div>
+                <h1 class="hero-title">
+                    <span class="hero-title-main" id="torneo-titulo">Cargando...</span>
+                    <span class="hero-title-sub">Tournament Dashboard</span>
+                </h1>
+            </div>
+        </div>
 
-                    <dt>Fecha de finalización:</dt>
-                    <dd class="tp-accent">AAAA-MM-DD</dd>
+        <!-- Main Grid -->
+        <div class="futuristic-grid">
+            <!-- Tournament Info Card -->
+            <div class="futuristic-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-info-circle"></i>
+                    </div>
+                    <h2 class="card-title">Información General</h2>
+                    <div class="card-status">
+                        <div class="status-dot"></div>
+                        Activo
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-calendar"></i>
+                            </div>
+                            <div class="info-content">
+                                <div class="info-label">Fecha de Inicio</div>
+                                <div class="info-value" id="torneo-fecha-inicio">Cargando...</div>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-calendar-check"></i>
+                            </div>
+                            <div class="info-content">
+                                <div class="info-label">Fecha de Fin</div>
+                                <div class="info-value" id="torneo-fecha-fin">Cargando...</div>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-fingerprint"></i>
+                            </div>
+                            <div class="info-content">
+                                <div class="info-label">UID del Torneo</div>
+                                <div class="info-value" id="torneo-uid">Cargando...</div>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="info-content">
+                                <div class="info-label">Equipos Participantes</div>
+                                <div class="info-value" id="torneo-equipos">Cargando...</div>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-gamepad"></i>
+                            </div>
+                            <div class="info-content">
+                                <div class="info-label">Total de Partidos</div>
+                                <div class="info-value" id="torneo-partidos">Cargando...</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-                    <dt>Tipo de torneo:</dt>
-                    <dd class="tp-accent">Individual / Equipos</dd>
+            <!-- Teams Card -->
+            <div class="futuristic-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h2 class="card-title">Participantes</h2>
+                    <div class="card-tabs">
+                        <button class="tab-btn active" id="equiposTabLista">Equipos</button>
+                        <button class="tab-btn" id="equiposTabJugadores">Jugadores</button>
+                        <button class="tab-btn" id="refreshEquiposBtn" title="Refrescar equipos">
+                            <i class="fas fa-rotate-right"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="teams-grid" id="equipos-lista">
+                        <!-- Los equipos se cargarán dinámicamente -->
+                    </div>
+                    <div id="equipos-jugadores" class="table-scroll" style="display:none;">
+                        <table class="futuristic-table">
+                            <thead>
+                                <tr>
+                                    <th>Jugador</th>
+                                    <th>Equipo</th>
+                                    <th>PA</th>
+                                    <th>PT</th>
+                                    <th>PD</th>
+                                    <th>TL</th>
+                                </tr>
+                            </thead>
+                            <tbody id="jugadores-tbody">
+                                <tr>
+                                    <td colspan="6">Cargando...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
 
-                    <dt>Cantidad de miembros admitida:</dt>
-                    <dd class="tp-accent">0</dd>
-                </dl>
-            </section>
+            <!-- Matches Card -->
+            <div class="futuristic-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-gamepad"></i>
+                    </div>
+                    <h2 class="card-title">Partidos</h2>
+                    <div class="card-tabs">
+                        <button class="tab-btn" id="partidosTabAdmin">Partidos</button>
+                        <button class="tab-btn active" id="partidosTabProximos">Próximos</button>
+                        <button class="tab-btn" id="partidosTabFinalizados">Finalizados</button>
+                        <span class="tab-separator"></span>
+                        <!-- Toggle con estilo pill -->
+                        <label class="toggle-label" title="Alternar ida y vuelta">
+                          <span class="toggle-text">Ida y vuelta</span>
+                          <input type="checkbox" id="modo-ida-vuelta-toggle" class="toggle-input" />
+                          <span class="toggle-switch" aria-hidden="true"></span>
+                        </label>
+                        <button class="tab-btn icon" id="generarPartidosBtn" title="Generar partidos pendientes" aria-label="Generar">
+                          <i class="fas fa-check"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="matches-filters">
+                        <label for="jornada-selector" class="filter-label">Ver:</label>
+                        <select id="jornada-selector" class="filter-select">
+                            <option value="all">Todos</option>
+                        </select>
+                    </div>
+                    <div class="matches-list scroll-panel" id="partidos-lista">
+                        <!-- Los partidos se cargarán dinámicamente -->
+                    </div>
+                </div>
+            </div>
 
-            <section class="tp-section">
-                <h2>Tabla General</h2>
-                <div class="tp-table-wrap">
-                    <table class="tp-table">
+            <!-- Statistics Card -->
+            <div class="futuristic-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h2 class="card-title">Tabla General</h2>
+                    <div class="card-actions">
+                        <button class="action-btn" id="downloadStatsBtn" title="Descargar PDF">
+                            <i class="fas fa-download"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="table-scroll">
+                    <table class="futuristic-table">
                         <thead>
                             <tr>
                                 <th>Equipo</th>
-                                <th>Puntaje</th>
-                                <th>DC</th>
-                                <th>CA</th>
-                                <th>CC</th>
+                                <th>PJ</th>
+                                <th>V</th>
+                                <th>D</th>
+                                <th>PA</th>
+                                <th>PC</th>
+                                <th>DP</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td colspan="5" style="text-align:center;">Sin datos</td>
-                            </tr>
+                        <tbody id="estadisticas-tabla">
+                            <!-- Las estadísticas se cargarán dinámicamente -->
                         </tbody>
                     </table>
-                </div>
-            </section>
-
-            <section class="tp-section">
-                <h2>Próximos Partidos</h2>
-                <div class="tp-table-wrap">
-                    <table class="tp-table">
-                        <thead>
-                            <tr>
-                                <th>Equipo Local</th>
-                                <th>PL</th>
-                                <th>PV</th>
-                                <th>Equipo Visitante</th>
-                                <th>Fecha</th>
-                                <th>Hora</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td colspan="6" style="text-align:center;">Sin partidos programados</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-
-            <section class="tp-section">
-                <div class="tp-list-grid">
-                    <div>
-                        <h2>Jugadores TOP</h2>
-                        <ul class="tp-list">
-                            <li>—</li>
-                        </ul>
                     </div>
                 </div>
-            </section>
-
-            <section class="tp-section">
-                <h2>Partidos jugados</h2>
-                <div class="tp-table-wrap">
-                    <table class="tp-table">
-                        <thead>
-                            <tr>
-                                <th>Equipo Local</th>
-                                <th>PL</th>
-                                <th>PV</th>
-                                <th>Equipo Visitante</th>
-                                <th>Fecha</th>
-                                <th>Hora</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td colspan="6" style="text-align:center;">Sin partidos programados</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-
-            <div class="flex-contianer">
-                    <a class="button-right" href="edit.html">Editar torneo</a>
-                    <form action="#" method="POST">
-                        <button class="button-left" type="submit" style="height: 45px; margin-top: 13px;"> Eliminar torneo </button>
-                    </form>
-                    <a class="button-right" href="../partidos/create.html">Crear partidos</a>
-                <a class="button-right" href="../client/dashboard.html">Volver</a>
             </div>
-        </section>
-        <footer class="footer">
-            <p>© 2025 ReboteX - Todos los derechos reservados</p>
-        </footer>
-    </main>
+        </div>
 
+        <!-- Action Buttons -->
+        <div style="padding: 30px; text-align: center;">
+            <a href="../client/dashboard.html" class="futuristic-btn secondary">
+                <i class="fas fa-arrow-left"></i>
+                Volver a Inicio
+            </a>
+            <button class="futuristic-btn" onclick="window.print()">
+                <i class="fas fa-print"></i>
+                Imprimir Reporte
+            </button>
+        </div>
+    </div>
+
+    <!-- Footer básico dentro del diseño futurista -->
+    <footer class="footer-basic">© 2025 ReboteX. Todos los derechos reservados.</footer>
+
+    <script src="../js/auth.js"></script>
+    <script src="../js/config.js"></script>
     <script src="../js/dashboard.js"></script>
-</body>
+    <!-- Librerías para generar PDF en el cliente -->
+    <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.5.31/dist/jspdf.plugin.autotable.min.js"></script>
+    <script src="../js/show-torneo.js?v=3"></script>
+    <script src="../js/sticky-header-general.js?v=1"></script>
+    <script src="../js/torneo-jugadores.js?v=1"></script>
+    <script src="../js/torneo-edit-modal.js"></script>
+  </body>
 </html>

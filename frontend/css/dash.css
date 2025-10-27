@@ -1,0 +1,126 @@
+/* dash.css - Estilos futuristas específicos para client/dashboard.html */
+
+/* Paleta y base */
+:root {
+  --bg-deep: #0b1020;
+  --bg-elev: #141a2e;
+  --accent-cyan: #00e5ff;
+  --accent-magenta: #ff3df2;
+  --text-primary: #e6f0ff;
+  --text-secondary: #b0b8c4;
+  --border-soft: rgba(255,255,255,0.15);
+}
+
+body.futuristic-theme {
+  /* Fondo igual que en torneo/show.html */
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+  color: var(--text-primary);
+  min-height: 100vh;
+}
+
+/* Secciones del dashboard */
+.home-section {
+  padding: 24px 24px 48px 24px;
+  /* Fondo de contenido igual al de .main-content en torneo/show.html */
+  background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+}
+.principalbox { margin-bottom: 28px; }
+.principalbox .title {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  font-size: 1.25rem;
+  color: var(--text-primary);
+  margin: 4px 0 14px 2px;
+}
+
+/* Swiper carruseles */
+.swiper-container {
+  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+  border: 1px solid var(--border-soft);
+  border-radius: 14px;
+  padding: 16px;
+  position: relative;
+}
+.swiper-slide { width: auto; margin-right: 12px; }
+
+/* Separación inicial para que la primera tarjeta no quede bajo la flecha */
+#torneos-swiper .swiper-wrapper { padding-left: 35px; }
+#equipos-swiper .swiper-wrapper { padding-left: 35px; }
+
+/* Navegación - aparece solo si hay >5 elementos */
+.hide-nav .swiper-button-next,
+.hide-nav .swiper-button-prev { display: none; }
+
+.swiper-button-next,
+.swiper-button-prev {
+  color: var(--accent-cyan);
+  width: 36px; height: 36px;
+  background: none;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  color: #66eaff;
+  transform: none;
+  background: none;
+}
+
+/* Tarjetas compactas (se apoyan en estilos existentes) */
+.tournament-card,
+.team-card {
+  background: linear-gradient(180deg, rgba(20,26,46,0.85), rgba(20,26,46,0.7));
+  border: 1px solid var(--border-soft);
+  border-radius: 12px;
+  color: var(--text-primary);
+}
+.tournament-card { width: 240px; }
+.tournament-card .description { color: var(--text-secondary); }
+
+/* Asegurar legibilidad en elementos clave */
+.team-card .team-name { color: var(--text-primary); text-decoration: none; }
+.team-card .team-role { color: var(--text-secondary); }
+.match-header .tournament-name,
+.match-header .match-date { color: var(--text-primary); }
+.match-teams .team span { color: var(--text-primary); }
+.loading-slide .loading-card,
+.loading-card {
+  background: linear-gradient(180deg, rgba(20,26,46,0.6), rgba(20,26,46,0.5));
+  color: var(--text-secondary);
+}
+
+/* Próximos partidos */
+.matches-container { display: grid; gap: 16px; }
+.match-card {
+  background: linear-gradient(180deg, rgba(20,26,46,0.85), rgba(20,26,46,0.7));
+  border: 1px solid var(--border-soft);
+  border-radius: 12px;
+  padding: 16px;
+}
+.match-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
+.match-teams { display:flex; justify-content:space-between; align-items:center; gap:12px; }
+.match-time { display:flex; align-items:center; gap:8px; color: var(--accent-cyan); }
+.vs { color: var(--text-secondary); font-weight:600; }
+
+/* Footer básico */
+.footer-basic {
+  margin-top: 36px;
+  padding: 20px 24px 32px; /* extra espacio abajo para evitar corte visual */
+  border-top: 1px solid rgba(0, 212, 255, 0.18);
+  background: transparent; /* elimina el bloque oscuro que parecía cortado */
+  text-align: center;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  clear: both;
+  z-index: 1;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .home-section { padding: 18px; }
+}
+@media (max-width: 768px) {
+  .swiper-container { padding: 12px; }
+}

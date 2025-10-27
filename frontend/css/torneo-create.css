@@ -1,0 +1,72 @@
+/* torneo-create.css - Ajustes específicos para Crear Torneo con el mismo look que Crear Equipo */
+
+.create-torneo-section {
+  display: block;
+  padding: 24px;
+}
+
+.create-torneo-section .futuristic-card {
+  max-width: 840px; /* más ancha para acomodar grid de fechas */
+  width: 100%;
+  margin: 24px auto; /* centra horizontalmente */
+}
+
+.create-torneo-section .card-content form {
+  display: grid;
+  gap: 16px;
+}
+
+.create-torneo-section .form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #e0e6ed;
+}
+
+.create-torneo-section .form-group input[type="text"],
+.create-torneo-section .form-group input[type="date"],
+.create-torneo-section .form-group input[type="number"],
+.create-torneo-section .form-group textarea,
+.create-torneo-section .form-group select {
+  width: 100%;
+  padding: 12px 14px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  border-radius: 10px;
+  color: #ffffff;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+/* Icono de calendario en blanco (igual que login) */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1) brightness(1.35) contrast(1.15) !important;
+  opacity: 1 !important;
+  cursor: pointer;
+}
+
+.create-torneo-section .form-group input::placeholder,
+.create-torneo-section .form-group textarea::placeholder {
+  color: #b0b6c0;
+  opacity: 0.9;
+}
+
+.create-torneo-section .form-group input:focus,
+.create-torneo-section .form-group textarea:focus,
+.create-torneo-section .form-group select:focus {
+  border-color: #00d4ff;
+  box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.2);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.create-torneo-section .form-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.create-torneo-section .form-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}

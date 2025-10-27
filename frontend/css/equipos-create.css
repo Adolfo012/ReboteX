@@ -1,0 +1,15 @@
+/* equipos-create.css - Ajustes específicos para la vista Crear Equipo */
+
+/* Asegura espacio al final para no tapar botones y contenido */
+body.futuristic-theme .home-section {
+  padding-bottom: 120px;
+}
+
+/* Footer fijo al fondo del viewport en la vista sin scroll */
+body.futuristic-theme.no-scroll .footer-basic {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 24px; /* elevamos un poco el footer */
+  width: 100%;
+}

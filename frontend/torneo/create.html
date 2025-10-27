@@ -1,90 +1,158 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ReboteX Client</title>
+    <title>Crear Torneo - ReboteX</title>
+    <!-- Estilos del dashboard y tema futurista (mismos que Equipos/create.html) -->
     <link rel="preload" href="../css/dashboard.css" as="style">
     <link href="../css/dashboard.css" rel="stylesheet">
-    <link rel="preload" href="../css/forms.css" as="style">
-    <link href="../css/forms.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/dashboard-torneo.css">
+    <link href="../css/dashboard-torneo.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/dash.css">
+    <link href="../css/dash.css" rel="stylesheet">
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Fuentes futuristas -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600;700&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Ajustes específicos de Crear Torneo -->
+    <link rel="stylesheet" href="../css/torneo-create.css">
 </head>
 
-<body>
-    <div id="slidebar"></div>
-        <section class="principalbox">
-            <div class="contorno">
-                <h1>Crear Torneo</h1>
-                <form id="torneoForm" action="#" method="POST">
-                    <label>Nombre de torneo: <br>
-                        <input type="text" name="nombre" required maxlength="150"> <br>
-                    </label>
+<body class="futuristic-theme">
+    <!-- Header idéntico al de Equipos/create.html -->
+    <header class="futuristic-header">
+        <div class="header-background">
+            <div class="header-grid"></div>
+            <div class="header-particles"></div>
+        </div>
+        <div class="header-content">
+            <div class="header-brand">
+                <div class="brand-icon">
+                    <img src="../sources/rebotex-logo.svg" alt="ReboteX Logo" class="rebotex-logo" />
+                </div>
+                <div class="brand-text">
+                    <h1 class="brand-title">ReboteX</h1>
+                    <span class="brand-subtitle">Tournament Management System</span>
+                </div>
+            </div>
+            <nav class="header-nav">
+                <a href="../client/dashboard.html" class="nav-btn">
+                    <i class="fas fa-home"></i>
+                    <span>Inicio</span>
+                </a>
+                <a href="../torneo/create.html" class="nav-btn">
+                    <i class="fas fa-trophy"></i>
+                    <span>Crear Torneo</span>
+                </a>
+                <a href="../Equipos/create.html" class="nav-btn">
+                    <i class="fas fa-users"></i>
+                    <span>Crear Equipo</span>
+                </a>
+                <a href="../Notificaciones/Notis.html" class="nav-btn">
+                    <i class="fas fa-bell"></i>
+                    <span>Notificaciones</span>
+                </a>
+                <a href="#" class="nav-btn">
+                    <i class="fas fa-user"></i>
+                    <span>Perfil</span>
+                </a>
+                <a href="../client/Nosotros.html" class="nav-btn">
+                    <i class="fas fa-info-circle"></i>
+                    <span>Sobre Nosotros</span>
+                </a>
+                <button class="nav-btn logout-btn" onclick="cerrarSesion()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Cerrar Sesión</span>
+                </button>
+            </nav>
+        </div>
+    </header>
 
-                    <label>Ubicación: <br>
-                        <input type="text" name="ubicacion" maxlength="150"> <br>
-                    </label>
-
-                    <label>Descripción: <br>
-                        <input type="text" name="descripcion" maxlength="250"> <br>
-                    </label>
-
-                    <label>Fecha de Inicio: <br>
-                        <input type="date" name="fecha_inicio" required> <br>
-                    </label>
-
-                    <label>Fecha de Fin: <br>
-                        <input type="date" name="fecha_fin"> <br>
-                    </label>
-
-                    <label class="tipo torneo">Elige el tipo de torneo:</label><br>
-                    <label for="individual">Individual</label>
-                    <input type="radio" id="individual" name="modalidad" value="individual" required> <br>
-                    <label for="equipos">Equipos</label>
-                    <input type="radio" id="equipos" name="modalidad" value="equipos" required>
-                    <br>
-
-                    <label for="cantidad" style="display: none">
-                        Cantidad de equipos/participantes en el torneo:
-                    </label>
-                    <input type="number" id="cantEquipo" name="cantEquipo" style="display: none">
-                    <br>
-
-                    <script>
-                        // Mostrar/ocultar campos adicionales según el tipo de torneo
-                        document.querySelectorAll('input[name="modalidad"]').forEach(function(radio) {
-                            radio.addEventListener('change', function() {
-                                var show = (this.value === 'individual' || this.value === 'equipos');
-                                document.getElementById('cantEquipo').style.display = show ? 'block' : 'none';
-                                var qtyLabel = document.querySelector('label[for="cantidad"]');
-                                if (qtyLabel) qtyLabel.style.display = show ? 'block' : 'none';
-                            });
-                        });
-
-                        // Estado inicial seguro cuando no hay radio seleccionado aún
-                        document.addEventListener('DOMContentLoaded', function() {
-                            var checked = document.querySelector('input[name="modalidad"]:checked');
-                            var show = checked && (checked.value === 'individual' || checked.value === 'equipos');
-                            document.getElementById('cantEquipo').style.display = show ? 'block' : 'none';
-                            var qtyLabel = document.querySelector('label[for="cantidad"]');
-                            if (qtyLabel) qtyLabel.style.display = show ? 'block' : 'none';
-                        });
-                    </script>
-
-                    <div class="flex-contianer">
-                        <button type="submit" class="button-left" style="height: 45px; margin-top: 13px;">
-                            Crear
-                        </button>
-                        <a href="../client/dashboard.html" class="button-right">Volver</a>
-                    </div>
-                </form>
+    <!-- Contenido principal con tarjeta futurista -->
+    <main class="home-section">
+        <section class="principalbox create-torneo-section">
+            <div class="futuristic-card">
+                <div class="card-header">
+                    <div class="card-icon"><i class="fas fa-trophy"></i></div>
+                    <h2 class="card-title">Crear Torneo</h2>
+                </div>
+                <div class="card-content">
+                    <form id="torneoForm" action="#" method="POST">
+                        <div class="form-group">
+                            <label for="nombre">Nombre del torneo</label>
+                            <input type="text" id="nombre" name="nombre" placeholder="Introduce el nombre del torneo" required maxlength="150">
+                        </div>
+                        <div class="form-group">
+                            <label for="ubicacion">Ubicación</label>
+                            <input type="text" id="ubicacion" name="ubicacion" placeholder="Ciudad, sede o región" maxlength="150">
+                        </div>
+                        <div class="form-group">
+                            <label for="descripcion">Descripción</label>
+                            <input type="text" id="descripcion" name="descripcion" placeholder="Breve descripción del torneo" maxlength="250">
+                        </div>
+                        <div class="form-grid-2">
+                            <div class="form-group">
+                                <label for="fecha_inicio">Fecha de inicio</label>
+                                <input type="date" id="fecha_inicio" name="fecha_inicio" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="fecha_fin">Fecha de fin</label>
+                                <input type="date" id="fecha_fin" name="fecha_fin">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Modalidad</label>
+                            <div style="display:flex; gap:16px;">
+                                <label><input type="radio" name="modalidad" value="individual" required> Individual</label>
+                                <label><input type="radio" name="modalidad" value="equipos" required> Equipos</label>
+                            </div>
+                        </div>
+                        <div class="form-group" id="cantidad-wrapper" style="display:none;">
+                            <label for="cantEquipo">Cantidad de equipos/participantes</label>
+                            <input type="number" id="cantEquipo" name="cantEquipo" min="1" placeholder="Ej. 8, 16, 32">
+                        </div>
+                        <div class="form-actions" style="display:flex; gap:12px; justify-content:flex-end;">
+                            <a href="../client/dashboard.html" class="futuristic-btn secondary">
+                                <i class="fas fa-arrow-left"></i>
+                                <span>Volver</span>
+                            </a>
+                            <button type="submit" class="futuristic-btn">
+                                <i class="fas fa-check"></i>
+                                <span>Crear</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </section>
 
-    <footer class="footer">
-        <p>© 2025 ReboteX - Todos los derechos reservados</p>
-    </footer>
-    
+        <!-- Footer básico igual al dashboard -->
+        <footer class="footer-basic">
+            © 2025 ReboteX. Todos los derechos reservados.
+        </footer>
+    </main>
+
+    <!-- Scripts -->
+    <script src="../js/auth.js"></script>
+    <script src="../js/config.js"></script>
     <script src="../js/dashboard.js"></script>
     <script src="../js/create-torneo.js"></script>
+    <script>
+      // Mostrar/ocultar cantidad según modalidad
+      document.addEventListener('DOMContentLoaded', function() {
+        const radios = document.querySelectorAll('input[name="modalidad"]');
+        const wrapper = document.getElementById('cantidad-wrapper');
+        const cantInput = document.getElementById('cantEquipo');
+        function updateVisibility() {
+          const checked = document.querySelector('input[name="modalidad"]:checked');
+          const show = !!checked;
+          wrapper.style.display = show ? 'block' : 'none';
+          if (!show) { cantInput.value = ''; }
+        }
+        radios.forEach(r => r.addEventListener('change', updateVisibility));
+        updateVisibility();
+      });
+    </script>
 </body>
 </html>
