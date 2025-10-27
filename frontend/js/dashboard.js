@@ -67,8 +67,21 @@ function initializeNavigation() {
 
 // 🔥 FUNCIONALIDAD PARA CARGAR TORNEOS DINÁMICAMENTE 🔥
 
-// Configuración del backend (default al servidor remoto, permite override por window.REBOTE_BACKEND_URL)
-const API_URL = window.REBOTE_BACKEND_URL || 'https://rebotex-backend.onrender.com';
+// Configuración del backend (soporta ?backend=, getBackendUrl y fallback remoto)
+function getQueryParam(name) {
+  try {
+    const url = new URL(window.location.href);
+    return url.searchParams.get(name);
+  } catch (_) { return null; }
+}
+
+const API_URL = (() => {
+  const qp = getQueryParam('backend');
+  const cfg = (typeof window.getBackendUrl === 'function')
+    ? window.getBackendUrl()
+    : (window.REBOTE_BACKEND_URL || null);
+  return qp || cfg || 'https://rebotex-backend.onrender.com';
+})();
 
 // ====== Notificaciones: burbuja de conteo en el botón del header ======
 function ensureNavBadgeStyles() {
@@ -214,6 +227,20 @@ function getCurrentUser() {
         return JSON.parse(userData);
     }
     return null;
+}
+
+// Helper para obtener token desde almacenamiento (fallback si userData.token no está)
+function getAuthToken() {
+  try {
+    const t = localStorage.getItem('authToken');
+    if (t) return t;
+    const userData = localStorage.getItem('userData');
+    if (userData) {
+      const u = JSON.parse(userData);
+      if (u && u.token) return u.token;
+    }
+  } catch (_){}
+  return '';
 }
 
 // Función para cargar información del usuario
@@ -497,7 +524,7 @@ async function cargarTorneos() {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${usuario.token}`
+                'Authorization': `Bearer ${getAuthToken() || usuario.token || ''}`
             }
         });
 
@@ -579,7 +606,7 @@ async function cargarEquipos() {
         let equipos = [];
         try {
             const resUserEquipos = await fetch(`${API_URL}/api/equipos/usuario/${usuario.id}`, {
-                headers: { 'Authorization': `Bearer ${usuario.token}` }
+                headers: { 'Authorization': `Bearer ${getAuthToken() || usuario.token || ''}` }
             });
             if (resUserEquipos.ok) {
                 const jsonUserEquipos = await resUserEquipos.json();
