@@ -11,13 +11,19 @@
   var useRenderFlag = (window.localStorage && window.localStorage.getItem && window.localStorage.getItem('USE_RENDER')) || null;
 
   var defaultUrl;
-  if (storedUrl) {
+  // Detectar si estamos en producción (Netlify u otro host no local)
+  var host = (window && window.location && window.location.hostname) ? window.location.hostname : '';
+  var isLocalHost = /^(localhost|127\.|\[?::1\]?|0\.0\.0\.0|192\.168\.|10\.|172\.(1[6-9]|2\d|3[0-1]))$/.test(host);
+
+  var isStoredLocal = /localhost|\[?::1\]?|127\.|0\.0\.0\.0|192\.168\.|10\.|172\.(1[6-9]|2\d|3[0-1])/.test(String(storedUrl || ''));
+  if (storedUrl && !(isStoredLocal && !isLocalHost)) {
+    // Respetar URL guardada excepto si es local y estamos en host no local
     defaultUrl = storedUrl;
   } else if (storedEnv === 'render' || useRenderFlag === 'true') {
     defaultUrl = RENDER_URL;
   } else {
-    // Por defecto usar entorno local
-    defaultUrl = LOCAL_URL;
+    // Si no estamos en host local, usar Render por defecto
+    defaultUrl = isLocalHost ? LOCAL_URL : RENDER_URL;
   }
 
   if (!window.REBOTE_BACKEND_URL) {
