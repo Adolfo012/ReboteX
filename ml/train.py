@@ -137,9 +137,14 @@ def train():
             X, y, test_size=0.25, random_state=42, stratify=y if len(np.unique(y)) > 1 else None
         )
         # Hyperparams adaptados a pocos datos
-        if n_samples <= 60:
+        if n_samples <= 24:
             clf = DecisionTreeClassifier(
-                max_depth=3, min_samples_leaf=4, min_samples_split=8,
+                max_depth=2, min_samples_leaf=5, min_samples_split=6,
+                class_weight='balanced', random_state=42
+            )
+        elif n_samples <= 60:
+            clf = DecisionTreeClassifier(
+                max_depth=3, min_samples_leaf=6, min_samples_split=10,
                 class_weight='balanced', random_state=42
             )
         elif n_samples <= 150:
@@ -152,7 +157,7 @@ def train():
         # Calibración de probabilidades para estabilidad con pocos datos
         # Usar 'prefit' si el set de entrenamiento es muy pequeño
         min_class = np.min(np.bincount(y_train)) if len(np.unique(y_train)) > 1 else len(y_train)
-        small_train = min_class < 3 or len(y_train) < 24
+        small_train = min_class < 4 or len(y_train) < 40
         if small_train:
             calibrator = CalibratedClassifierCV(clf, method='sigmoid', cv='prefit')
             calibrator.fit(X_train, y_train)
