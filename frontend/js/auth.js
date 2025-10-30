@@ -73,7 +73,10 @@ function performLogout() {
     ensureAuthStyles();
     showLogoutToast('Sesión cerrada', 'Redirigiendo al login…');
     setTimeout(() => {
-      window.location.href = '/frontend/login/login.html';
+      // Detectar si el sitio está publicado con base en "frontend" (local) o en la raíz (Netlify/Render)
+      const path = window.location.pathname || '';
+      const base = path.includes('/frontend/') ? '/frontend' : '';
+      window.location.href = `${base}/login/login.html`;
     }, 1200);
   }
 }
